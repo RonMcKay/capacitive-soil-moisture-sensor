@@ -1,0 +1,12 @@
+[submodule "hardware/lib/mysensors.3dshapes"]
+	path = hardware/lib/mysensors.3dshapes
+	url = https://github.com/mysensors-kicad/mysensors.3dshapes.git
+[submodule "hardware/lib/mysensors_radios.pretty"]
+	path = hardware/lib/mysensors_radios.pretty
+	url = https://github.com/mysensors-kicad/mysensors_radios.pretty.git
+[submodule "hardware/lib/mysensors_symbols"]
+	path = hardware/lib/mysensors_symbols
+	url = https://github.com/mysensors-kicad/mysensors_symbols.git
+[submodule "software/lib/MySensors"]
+	path = software/lib/MySensors
+	url = https://github.com/mysensors/MySensors.git

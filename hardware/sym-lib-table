@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name mysensors_security)(type Legacy)(uri ${KIPRJMOD}/lib/mysensors_symbols/mysensors_security.lib)(options "")(descr ""))
+)

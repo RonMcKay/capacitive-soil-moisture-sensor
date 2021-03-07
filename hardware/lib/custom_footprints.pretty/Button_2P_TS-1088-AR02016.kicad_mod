@@ -1,0 +1,15 @@
+(module Button_2P_TS-1088-AR02016 (layer F.Cu) (tedit 600DB114)
+  (attr smd)
+  (fp_text reference REF** (at 1.78 -5.2) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value Button_2P_TS-1088-AR02016 (at -0.13 -3.27) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_line (start -3 1.75) (end -3 -1.75) (layer F.SilkS) (width 0.12))
+  (fp_line (start 3 1.75) (end -3 1.75) (layer F.SilkS) (width 0.12))
+  (fp_line (start 3 -1.75) (end 3 1.75) (layer F.SilkS) (width 0.12))
+  (fp_line (start -3 -1.75) (end 3 -1.75) (layer F.SilkS) (width 0.12))
+  (pad 1 smd rect (at -2.075 0) (size 1.35 1.8) (layers F.Cu F.Paste F.Mask))
+  (pad 2 smd rect (at 2.075 0) (size 1.35 1.8) (layers F.Cu F.Paste F.Mask))
+)
