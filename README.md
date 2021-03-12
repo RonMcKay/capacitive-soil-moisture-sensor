@@ -44,8 +44,11 @@ This project is licensed under the CERN-OHL-P v2
 ## Special Thanks to
 
 * [MySensors Team](https://www.mysensors.org), which made me start creating my own IoT hardware
+* miceuz, for his [long writeup](https://wemakethings.net/2012/09/26/capacitance_measurement/) of how capacitive soil moisture sensing is working
 * Ken Shirriff, whos post about the [secrets of arduino PWM](http://www.righto.com/2009/07/secrets-of-arduino-pwm.html) made me understand the topic to a certain extend
 * Everyone out there who is producing open source hardware and/or guides explaining the topic, which makes the diy electronics topic more accessible
+
+P.S.: The sensor on the photos is only a prototype where I accidentally soldered some wrong value capacitor and forgot a capacitor for the FTDI connector. These are however already fixed in the BOM and pcb design.
 
 ![](photos/example_readings.png)
 
