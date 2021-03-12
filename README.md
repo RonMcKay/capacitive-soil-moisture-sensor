@@ -25,10 +25,15 @@ For programming and burning the bootloader I use [Visual Studio Code](https://co
 together with [PlatformIO](https://platformio.org/) and [MiniCore](https://github.com/MCUdude/MiniCore)
 (which is already included in the platform io plugin for vs code).
 
+## Assembly
+
+The assembly is pretty much self explanatory. The only thing that needs to be taken care of is that the two legs of the battery holders who are closest to the radio module are not touching as this would cause a short. When soldering in the battery terminals the two connectors shouldn't touch. To be really safe you can bend them away from each other.
+
 ## Future Improvements
 
 Here is a list of possible future improvements that might be worth looking into:
 
+* Changing out the ATmega328P and the NRF24L01 for a NRF52.
 * Incorporating a voltage booster to increase battery runtime
 * Increase water proofing of the case by adding an o-ring at the bottom of the thread
 * Improve the thread model for easier printing and shorter screw on
