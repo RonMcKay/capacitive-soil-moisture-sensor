@@ -9,6 +9,7 @@ A short summary of the features is:
 * Utilizes an ATSHA204A for secure message signing
 * A sensor value range of approximately 400 (from air to water)
 * External 8MHz resonator for better temperature stability than the interal oscillator
+* All SMD components (except the nrf24l01 radio) on one side of the pcb
 * 3D printable case which should make the electronics waterproof if the seam to the pcb is sealed with silicone e.g.
 
 **Note: Take care when inserting the batteries as there is no reverse polarity protection on this board. Also check the pin assignment of the FTDI and AVR ISP headers as these might be non standard to save some space.**
@@ -51,5 +52,7 @@ This project is licensed under the CERN-OHL-P v2
 P.S.: The sensor on the photos is only a prototype where I accidentally soldered some wrong value capacitor and forgot a capacitor for the FTDI connector. These are however already fixed in the BOM and pcb design.
 
 ![](photos/example_readings.png)
+
+![](photos/pcb_front.jpg)![](photos/pcb_back.jpg)
 
 ![](photos/prototype_01.jpg)![](photos/prototype_02.jpg)![](photos/prototype_03.jpg)
