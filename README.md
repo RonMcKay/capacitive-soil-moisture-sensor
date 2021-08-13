@@ -5,6 +5,7 @@ It can however be adapted to any other framework that uses 2.4 GHz radio communi
 
 A short summary of the features is:
 * Runs on 2 AAA batteries
+* sleeping current of ~8uA (~10 years of battery life under optimal conditions)
 * Uses a NRF24L01 radio module for communication
 * Utilizes an ATSHA204A for secure message signing
 * A sensor value range of approximately 400 (from air to water)
@@ -52,10 +53,10 @@ This project is licensed under the CERN-OHL-P v2
 
 * [MySensors Team](https://www.mysensors.org), which made me start creating my own IoT hardware
 * miceuz, for his [long writeup](https://wemakethings.net/2012/09/26/capacitance_measurement/) of how capacitive soil moisture sensing is working
-* Ken Shirriff, whos post about the [secrets of arduino PWM](http://www.righto.com/2009/07/secrets-of-arduino-pwm.html) made me understand the topic to a certain extend
+* Ken Shirriff, who's post about the [secrets of arduino PWM](http://www.righto.com/2009/07/secrets-of-arduino-pwm.html) made me understand the topic to a certain extend
 * Everyone out there who is producing open source hardware and/or guides explaining the topic, which makes the diy electronics topic more accessible
 
-P.S.: The sensor on the photos is only a prototype where I accidentally soldered some wrong value capacitor and forgot a capacitor for the FTDI connector. These are however already fixed in the BOM and pcb design.
+P.S.: The sensor on the photos is only a prototype where I accidentally soldered some wrong value capacitor and forgot a capacitor for the FTDI connector. These are however already fixed in the pcb design.
 
 ![](photos/example_readings.png)
 
