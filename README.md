@@ -5,7 +5,7 @@ It can however be adapted to any other framework that uses 2.4 GHz radio communi
 
 A short summary of the features is:
 * Runs on 2 AAA batteries
-* sleeping current of ~8uA (~10 years of battery life under optimal conditions)
+* Sleeping current of 8uA (approx. 10 years of battery life under optimal conditions)
 * Uses a NRF24L01 radio module for communication
 * Utilizes an ATSHA204A for secure message signing
 * A sensor value range of approximately 400 (from air to water)
@@ -39,7 +39,6 @@ Here is a list of possible future improvements that might be worth looking into:
 * Changing out the ATmega328P and the NRF24L01 for a NRF52.
 * Incorporating a voltage booster to increase battery runtime
 * Increase water proofing of the case by adding an o-ring at the bottom of the thread
-* Improve the thread model for easier printing and shorter screw on
 * Maybe improve the battery holder for increased stability
 * Some temperature readings of the soil would be awesome, like an SMD thermistor or something similar at the tip of the sensor.
 
