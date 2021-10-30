@@ -35,7 +35,6 @@ The assembly is pretty much self explanatory. The only thing that needs to be ta
 
 Here is a list of possible future improvements that might be worth looking into:
 
-* Add a BOM
 * Changing out the ATmega328P and the NRF24L01 for a NRF52.
 * Incorporating a voltage booster to increase battery runtime
 * Increase water proofing of the case by adding an o-ring at the bottom of the thread
