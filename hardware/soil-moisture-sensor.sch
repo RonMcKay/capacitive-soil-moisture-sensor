@@ -67,6 +67,7 @@ F 0 "J1" H 1258 5281 50  0000 C CNN
 F 1 "AVR ISP" H 1258 5190 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1150 4900 50  0001 C CNN
 F 3 "~" H 1150 4900 50  0001 C CNN
+F 4 "C2833331" H 1150 4900 50  0001 C CNN "LCSC"
 	1    1150 4900
 	1    0    0    -1  
 $EndComp
@@ -268,7 +269,7 @@ P 5600 3350
 F 0 "BT1" V 5850 3450 50  0000 L CNN
 F 1 "Battery_Cell" V 5750 3150 50  0000 L CNN
 F 2 "MyFootprints:BatteryHolder_Keystone_597_591_2AAA_3V" V 5600 3410 50  0001 C CNN
-F 3 "~" V 5600 3410 50  0001 C CNN
+F 3 "https://www.keyelco.com/userAssets/file/M65p11.pdf" V 5600 3410 50  0001 C CNN
 	1    5600 3350
 	0    -1   -1   0   
 $EndComp
@@ -323,6 +324,7 @@ F 0 "J2" H 1258 4381 50  0000 C CNN
 F 1 "FTDI" H 1258 4290 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1150 4000 50  0001 C CNN
 F 3 "~" H 1150 4000 50  0001 C CNN
+F 4 "C2833331" H 1150 4000 50  0001 C CNN "LCSC"
 	1    1150 4000
 	1    0    0    -1  
 $EndComp
