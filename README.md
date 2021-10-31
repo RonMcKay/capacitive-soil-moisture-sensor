@@ -1,6 +1,8 @@
+![GitHub all releases](https://img.shields.io/github/downloads/ronmckay/capacitive-soil-moisture-sensor/total?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![CERN-OHL-P v2](https://img.shields.io/badge/license-CERN--OHL--P%20v2-brightgreen)
+
 # Capacitive Soil Moisture Sensor
 
-This is a capacitive soil moisture sensor which runs with a standalone ATmega328P and utilizes the MySensors framework.
+This is a capacitive soil moisture sensor which runs with a standalone ATmega328P and utilizes the [MySensors][1] framework.
 It can however be adapted to any other framework that uses 2.4 GHz radio communication with a NRF24L01 if you upload your own code.
 
 A short summary of the features is:
@@ -49,7 +51,7 @@ This project is licensed under the CERN-OHL-P v2
 
 ## Special Thanks to
 
-* [MySensors Team](https://www.mysensors.org), which made me start creating my own IoT hardware
+* [MySensors Team][1], which made me start creating my own IoT hardware
 * miceuz, for his [long writeup](https://wemakethings.net/2012/09/26/capacitance_measurement/) of how capacitive soil moisture sensing is working
 * Ken Shirriff, who's post about the [secrets of arduino PWM](http://www.righto.com/2009/07/secrets-of-arduino-pwm.html) made me understand the topic to a certain extend
 * Everyone out there who is producing open source hardware and/or guides explaining the topic, which makes the diy electronics topic more accessible
@@ -61,3 +63,5 @@ P.S.: The sensor on the photos is only a prototype where I accidentally soldered
 ![](photos/pcb_front.jpg)![](photos/pcb_back.jpg)
 
 ![](photos/prototype_01.jpg)![](photos/prototype_02.jpg)![](photos/prototype_03.jpg)
+
+[1]: https://www.mysensors.org
