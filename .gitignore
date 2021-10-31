@@ -23,9 +23,28 @@ fp-info-cache
 *.dsn
 *.ses
 
-# Exported BOM files
+# Exported BOM files and schematics
 *.xml
 *.csv
+*.pdf
+
+# Production/Gerber Files
+hardware/production
+*.gbl
+*.gbs
+*.gbp
+*.gbo
+*.gm1
+*.gtl
+*.gts
+*.gtp
+*.gto
+*.gbrjob
+*.drl
+*.drl_map.gbr
+*.drl
+*.drl_map.gbr
+*.gbr
 
 # -----------------------------------------------------
 # Software
