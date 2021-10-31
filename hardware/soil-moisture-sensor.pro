@@ -1,4 +1,4 @@
-update=07.03.2021 17:49:06
+update=31/10/2021 17:28:50
 version=1
 last_client=kicad
 [general]
@@ -67,7 +67,7 @@ CourtyardLineWidth=0.05
 OthersLineWidth=0.15
 OthersTextSizeV=1
 OthersTextSizeH=1
-OthersTextSizeThickness=0.16
+OthersTextSizeThickness=0.2
 OthersTextItalic=0
 OthersTextUpright=1
 SolderMaskClearance=0.075
