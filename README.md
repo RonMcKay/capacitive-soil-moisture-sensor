@@ -20,6 +20,8 @@ A short summary of the features is:
 
 ## Getting Started
 
+If you want to work on the repository you just have to run:
+
     git clone --recurse-submodules https://github.com/RonMcKay/capacitive-soil-moisture-sensor
 
 The PCB design is done in KiCad. You are pretty much good to go if you open the project with KiCad.
@@ -29,18 +31,22 @@ For programming and burning the bootloader I use [Visual Studio Code](https://co
 together with [PlatformIO](https://platformio.org/) and [MiniCore](https://github.com/MCUdude/MiniCore)
 (which is already included in the platform io plugin for vs code).
 
-## Assembly
+# Hardware
+## PCB Production
+In recent years the DIY PCB industry segment has been growing and thus there are numerous options to quite easily order your boards online for low prices. Just download the Gerber-files from the [release page](https://github.com/RonMcKay/capacitive-soil-moisture-sensor/releases) or clone the repository and generate them yourself from the KiCad PCB editor.
 
-The assembly is pretty much self explanatory. The only thing that needs to be taken care of is that the two legs of the battery holders who are closest to the radio module are not touching as this would cause a short. When soldering in the battery terminals the two connectors shouldn't touch. To be really safe you can bend them away from each other.
+## Assembly
+For the assembly of your boards there are currently no SMT assembly files supplied with the release, though you can generate them yourself within KiCad. For manual assembly you can find the BOM attached to the release. Each component is labeled on the board with the respective identifier in the BOM, so component placement is quite easy. You only need to take care that the two battery holders which are closest to the radio module do not touch each other as this would cause a short. To be really safe you can bend them away from each other.
+
+## Case
+There is currently a 3D-printable case for the sensor with a screw on lid. In the future there might be other alternatives which require less printing time.
 
 ## Future Improvements
 
 Here is a list of possible future improvements that might be worth looking into:
 
+* Make the sensor more compact by using a single AA/AAA battery together with a voltage booster
 * Changing out the ATmega328P and the NRF24L01 for a NRF52.
-* Incorporating a voltage booster to increase battery runtime
-* Increase water proofing of the case by adding an o-ring at the bottom of the thread
-* Maybe improve the battery holder for increased stability
 * Some temperature readings of the soil would be awesome, like an SMD thermistor or something similar at the tip of the sensor.
 
 Any contributions are highly welcome and I am happy to discuss remarks in the [github discussion](https://github.com/RonMcKay/capacitive-soil-moisture-sensor/discussions) section.
