@@ -2,6 +2,7 @@
 
 // #define MY_DEBUG
 // #define MY_DEBUG_VERBOSE_SIGNING
+// #define CALIBRATION_MODE
 
 // Soft signing
 // #define MY_SIGNING_SOFT
@@ -27,11 +28,11 @@
 #define PWM_WAIT_MS 200 // amount of ms to wait for the pwm signal to start up and the sensor values to settle
 
 // Needed for conversion from raw sensor values to percentages
-// calibrate in air and a glass of water with MY_DEBUG and serial monitor
+// calibrate in air and a glass of water with CALIBRATION_MODE and serial monitor
 #define AIR_SENSOR_VALUE 152
 #define WATER_SENSOR_VALUE 556
 
-#define ABSOLUTE_CHANGE 4 // Sensor value will only be send if the absolute change compared to the last measured sensor value is at least this
+#define ABSOLUTE_CHANGE 4 // Sensor value will only be send if the absolute change compared to the last measured raw sensor value is at least this
 
 // Values for battery measurements
 const float VccMin = 2.4; // 8 MHz arduino runs reliably down to 2.4V (see datasheet)
@@ -182,12 +183,12 @@ void sendValue()
 
 void loop()
 {
-#ifndef MY_DEBUG
+#ifndef CALIBRATION_MODE
   sendValue();
   sleep(SLEEP_IN_MS);
 #endif
 
-#ifdef MY_DEBUG
+#ifdef CALIBRATION_MODE
   int sensorVal = read_sensor();
   Serial.println(sensorVal);
   wait(500);
