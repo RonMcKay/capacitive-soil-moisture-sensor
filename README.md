@@ -41,6 +41,10 @@ For the assembly of your boards there are currently no SMT assembly files suppli
 ## Case
 There is currently a 3D-printable case for the sensor with a screw on lid. In the future there might be other alternatives which require less printing time.
 
+# Software
+## Calibration
+The minimum (air) and maximum (water) sensor values need to be calibrated. For this, get a glass of water and flash the sensor with `#define CALIBRATION_MODE`. While reading out the log messages of the sensor, note down the sensor values for air and submerged in water. Change `AIR_SENSOR_VALUE` and `WATER_SENSOR_VALUE` accordingly and reflash the sensor while commenting out `#define CALIBRATION_MODE`. Your soil moisture sensor is now ready for operation.
+
 ## Future Improvements
 
 Here is a list of possible future improvements that might be worth looking into:
