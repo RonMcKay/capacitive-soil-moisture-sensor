@@ -5,11 +5,11 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Capacitive Soil Moisture Sensor"
-Date "2020-07-30"
-Rev "1.0"
+Date "2021-12-01"
+Rev "1.0.x"
 Comp ""
-Comment1 "Philipp Oberdiek"
-Comment2 ""
+Comment1 "Philipp Oberdiek ©"
+Comment2 "Licensed under CERN-OHL-P v2"
 Comment3 ""
 Comment4 ""
 $EndDescr
