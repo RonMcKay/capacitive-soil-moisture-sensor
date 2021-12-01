@@ -45,7 +45,7 @@ There is currently a 3D-printable case for the sensor with a screw on lid. In th
 ## Calibration
 The minimum (air) and maximum (water) sensor values need to be calibrated. For this, get a glass of water and flash the sensor with `#define CALIBRATION_MODE`. While reading out the log messages of the sensor, note down the sensor values for air and submerged in water. Change `AIR_SENSOR_VALUE` and `WATER_SENSOR_VALUE` accordingly and reflash the sensor while commenting out `#define CALIBRATION_MODE`. Your soil moisture sensor is now ready for operation.
 
-## Future Improvements
+# Future Improvements
 
 Here is a list of possible future improvements that might be worth looking into:
 
@@ -55,11 +55,11 @@ Here is a list of possible future improvements that might be worth looking into:
 
 Any contributions are highly welcome and I am happy to discuss remarks in the [github discussion](https://github.com/RonMcKay/capacitive-soil-moisture-sensor/discussions) section.
 
-## License
+# License
 
 This project is licensed under the CERN-OHL-P v2
 
-## Special Thanks to
+# Special Thanks to
 
 * [MySensors Team][1], which made me start creating my own IoT hardware
 * miceuz, for his [long writeup](https://wemakethings.net/2012/09/26/capacitance_measurement/) of how capacitive soil moisture sensing is working
