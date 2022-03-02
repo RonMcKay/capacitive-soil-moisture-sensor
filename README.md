@@ -1,4 +1,8 @@
+<div style="text-align:center">
+
 ![GitHub all releases](https://img.shields.io/github/downloads/ronmckay/capacitive-soil-moisture-sensor/total?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![CERN-OHL-P v2](https://img.shields.io/badge/license-CERN--OHL--P%20v2-brightgreen)
+
+</div>
 
 # Capacitive Soil Moisture Sensor
 
@@ -24,8 +28,8 @@ If you want to work on the repository you just have to run:
 
     git clone --recurse-submodules https://github.com/RonMcKay/capacitive-soil-moisture-sensor
 
-The PCB design is done in KiCad. You are pretty much good to go if you open the project with KiCad.
-The only thing that you need to add is the environment variable `MYSLOCAL={root-path-to-the-hardware-folder}/lib`
+The PCB design is done in KiCad 5. You are pretty much good to go if you open the project with KiCad.
+The only thing that you need to add is the environment variable `MYSLOCAL={root-path-to-the-hardware-folder}/lib` (Go to "Preferences" -> "Configure Paths")
 
 For programming and burning the bootloader I use [Visual Studio Code](https://code.visualstudio.com/)
 together with [PlatformIO](https://platformio.org/) and [MiniCore](https://github.com/MCUdude/MiniCore)
