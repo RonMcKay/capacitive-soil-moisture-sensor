@@ -33,7 +33,7 @@ F 1 "GND" H 8405 4227 50  0000 C CNN
 F 2 "" H 8400 4400 50  0001 C CNN
 F 3 "" H 8400 4400 50  0001 C CNN
 	1    8400 4400
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 $Comp
 L Switch:SW_Push SW1
@@ -45,7 +45,7 @@ F 2 "MyFootprints:Button_2P_TS-1088-AR02016" H 5550 4550 50  0001 C CNN
 F 3 "~" H 5550 4550 50  0001 C CNN
 F 4 "C720477" H 5550 4350 50  0001 C CNN "LCSC"
 	1    5550 4350
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 NoConn ~ 9000 4100
 NoConn ~ 9000 4000
@@ -69,7 +69,7 @@ F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1150 4900 50 
 F 3 "~" H 1150 4900 50  0001 C CNN
 F 4 "C2833331" H 1150 4900 50  0001 C CNN "LCSC"
 	1    1150 4900
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 Text GLabel 1350 4700 2    50   Input ~ 0
 MISO
@@ -88,7 +88,7 @@ F 1 "GND" V 1355 5072 50  0000 R CNN
 F 2 "" H 1350 5200 50  0001 C CNN
 F 3 "" H 1350 5200 50  0001 C CNN
 	1    1350 5200
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 Text GLabel 9000 3700 2    50   Input ~ 0
 SENSOR-IN
@@ -106,7 +106,7 @@ F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 1580 6700 50  0
 F 3 "~" H 1650 6700 50  0001 C CNN
 F 4 "C17414" V 1650 6700 50  0001 C CNN "LCSC"
 	1    1650 6700
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 $Comp
 L Device:D_Schottky D1
@@ -118,7 +118,7 @@ F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 2500 6700 50  0001 C CNN
 F 3 "~" H 2500 6700 50  0001 C CNN
 F 4 "C154819" H 2500 6700 50  0001 C CNN "LCSC"
 	1    2500 6700
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 $Comp
 L Device:C C2
@@ -130,7 +130,7 @@ F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2888 6900 50  
 F 3 "~" H 2850 7050 50  0001 C CNN
 F 4 "C28323" H 2850 7050 50  0001 C CNN "LCSC"
 	1    2850 7050
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 $Comp
 L Device:R R2
@@ -142,7 +142,7 @@ F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3180 7050 50  0
 F 3 "~" H 3250 7050 50  0001 C CNN
 F 4 "C17733" H 3250 7050 50  0001 C CNN "LCSC"
 	1    3250 7050
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 Text GLabel 3500 6700 2    50   Input ~ 0
 SENSOR-OUT
@@ -157,7 +157,7 @@ F 1 "GND" H 2855 7127 50  0000 C CNN
 F 2 "" H 2850 7300 50  0001 C CNN
 F 3 "" H 2850 7300 50  0001 C CNN
 	1    2850 7300
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 Wire Wire Line
 	2650 6700 2850 6700
@@ -185,7 +185,7 @@ F 1 "NRF24L01_Breakout" H 2180 1705 50  0000 L CNN
 F 2 "mysensors_radios:NRF24L01-SMD" H 1950 2350 50  0001 L CIN
 F 3 "http://www.nordicsemi.com/eng/content/download/2730/34105/file/nRF24L01_Product_Specification_v2_0.pdf" H 1800 1650 50  0001 C CNN
 	1    1800 1750
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 Text GLabel 2300 1550 2    50   Input ~ 0
 CE
@@ -206,7 +206,7 @@ F 1 "GND" H 1805 977 50  0000 C CNN
 F 2 "" H 1800 1150 50  0001 C CNN
 F 3 "" H 1800 1150 50  0001 C CNN
 	1    1800 1150
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 NoConn ~ 2300 1450
 Text GLabel 9000 1800 2    50   Input ~ 0
@@ -229,7 +229,7 @@ F 2 "Capacitor_SMD:CP_Elec_6.3x7.7" H 2838 1650 50  0001 C CNN
 F 3 "~" H 2800 1800 50  0001 C CNN
 F 4 "C127327" H 2800 1800 50  0001 C CNN "LCSC"
 	1    2800 1800
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 $Comp
 L Device:C C4
@@ -241,7 +241,7 @@ F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3338 1650 50  
 F 3 "~" H 3300 1800 50  0001 C CNN
 F 4 "C28323" H 3300 1800 50  0001 C CNN "LCSC"
 	1    3300 1800
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 Wire Wire Line
 	2800 1650 2800 1150
@@ -271,7 +271,7 @@ F 1 "Battery_Cell" V 5750 3150 50  0000 L CNN
 F 2 "MyFootprints:BatteryHolder_Keystone_597_591_2AAA_3V" V 5600 3410 50  0001 C CNN
 F 3 "https://www.keyelco.com/userAssets/file/M65p11.pdf" V 5600 3410 50  0001 C CNN
 	1    5600 3350
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -282,7 +282,7 @@ F 1 "GND" V 5705 3222 50  0000 R CNN
 F 2 "" H 5700 3350 50  0001 C CNN
 F 3 "" H 5700 3350 50  0001 C CNN
 	1    5700 3350
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 Text GLabel 9000 3200 2    50   Input ~ 0
 RESET
@@ -298,7 +298,7 @@ F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5430 3900 50  0
 F 3 "~" H 5500 3900 50  0001 C CNN
 F 4 "C17414" V 5500 3900 50  0001 C CNN "LCSC"
 	1    5500 3900
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -309,7 +309,7 @@ F 1 "GND" H 5755 4177 50  0000 C CNN
 F 2 "" H 5750 4350 50  0001 C CNN
 F 3 "" H 5750 4350 50  0001 C CNN
 	1    5750 4350
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 Text GLabel 5350 4350 0    50   Input ~ 0
 RESET
@@ -326,7 +326,7 @@ F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1150 4000 50 
 F 3 "~" H 1150 4000 50  0001 C CNN
 F 4 "C2833331" H 1150 4000 50  0001 C CNN "LCSC"
 	1    1150 4000
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -337,7 +337,7 @@ F 1 "GND" V 1355 3672 50  0000 R CNN
 F 2 "" H 1350 3800 50  0001 C CNN
 F 3 "" H 1350 3800 50  0001 C CNN
 	1    1350 3800
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -348,7 +348,7 @@ F 1 "GND" V 1355 3772 50  0000 R CNN
 F 2 "" H 1350 3900 50  0001 C CNN
 F 3 "" H 1350 3900 50  0001 C CNN
 	1    1350 3900
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 Text GLabel 1350 4100 2    50   Input ~ 0
 RX
@@ -364,7 +364,7 @@ F 2 "Package_QFP:TQFP-32_7x7mm_P0.8mm" H 8400 2900 50  0001 C CIN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega328_P%20AVR%20MCU%20with%20picoPower%20Technology%20Data%20Sheet%2040001984A.pdf" H 8400 2900 50  0001 C CNN
 F 4 "C14877" H 8400 2900 50  0001 C CNN "LCSC"
 	1    8400 2900
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 Text GLabel 9000 3400 2    50   Input ~ 0
 RX
@@ -386,7 +386,7 @@ F 1 "Conn_01x01" H 2180 7401 50  0001 L CNN
 F 2 "MyFootprints:Capacitive_Soil_Moisture_Sensor" H 2100 7450 50  0001 C CNN
 F 3 "~" H 2100 7450 50  0001 C CNN
 	1    2100 7450
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 Text Label 2100 7250 1    50   ~ 0
 Sensor_Track
@@ -400,7 +400,7 @@ F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 10400 2900 30  0001 C CIN
 F 3 "http://www.atmel.com/Images/Atmel-8885-CryptoAuth-ATSHA204A-Datasheet.pdf" H 10680 2824 60  0001 L CNN
 F 4 "C34377" H 10650 2900 50  0001 C CNN "LCSC"
 	1    10650 2900
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -411,7 +411,7 @@ F 1 "GND" H 10455 3077 50  0000 C CNN
 F 2 "" H 10450 3250 50  0001 C CNN
 F 3 "" H 10450 3250 50  0001 C CNN
 	1    10450 3250
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 Wire Wire Line
 	9000 2900 10000 2900
@@ -424,7 +424,7 @@ F 1 "+BATT" V 5415 3477 50  0000 L CNN
 F 2 "" H 5400 3350 50  0001 C CNN
 F 3 "" H 5400 3350 50  0001 C CNN
 	1    5400 3350
-	0    -1   -1   0   
+	0    -1   -1   0
 $EndComp
 $Comp
 L power:+BATT #PWR?
@@ -435,7 +435,7 @@ F 1 "+BATT" V 5665 4027 50  0000 L CNN
 F 2 "" H 5650 3900 50  0001 C CNN
 F 3 "" H 5650 3900 50  0001 C CNN
 	1    5650 3900
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 $Comp
 L power:+BATT #PWR?
@@ -446,7 +446,7 @@ F 1 "+BATT" V 1365 4927 50  0000 L CNN
 F 2 "" H 1350 4800 50  0001 C CNN
 F 3 "" H 1350 4800 50  0001 C CNN
 	1    1350 4800
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 $Comp
 L power:+BATT #PWR?
@@ -457,7 +457,7 @@ F 1 "+BATT" V 1365 4127 50  0000 L CNN
 F 2 "" H 1350 4000 50  0001 C CNN
 F 3 "" H 1350 4000 50  0001 C CNN
 	1    1350 4000
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 $Comp
 L power:+BATT #PWR?
@@ -468,7 +468,7 @@ F 1 "+BATT" V 8465 1327 50  0000 L CNN
 F 2 "" H 8450 1200 50  0001 C CNN
 F 3 "" H 8450 1200 50  0001 C CNN
 	1    8450 1200
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 $Comp
 L power:+BATT #PWR?
@@ -479,7 +479,7 @@ F 1 "+BATT" V 10465 2427 50  0000 L CNN
 F 2 "" H 10450 2300 50  0001 C CNN
 F 3 "" H 10450 2300 50  0001 C CNN
 	1    10450 2300
-	1    0    0    -1  
+	1    0    0    -1
 $EndComp
 $Comp
 L power:+BATT #PWR?
@@ -490,7 +490,7 @@ F 1 "+BATT" V 1815 2477 50  0000 L CNN
 F 2 "" H 1800 2350 50  0001 C CNN
 F 3 "" H 1800 2350 50  0001 C CNN
 	1    1800 2350
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 Connection ~ 1800 2350
 $Comp
@@ -501,9 +501,9 @@ F 0 "R4" V 9800 2500 50  0000 L CNN
 F 1 "10K" V 9900 2500 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9930 2600 50  0001 C CNN
 F 3 "~" H 10000 2600 50  0001 C CNN
-F 4 "C17514" V 10000 2600 50  0001 C CNN "LCSC"
+F 4 "C17414" V 10000 2600 50  0001 C CNN "LCSC"
 	1    10000 2600
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 Wire Wire Line
 	10000 2750 10000 2900
@@ -529,7 +529,7 @@ F 2 "MyFootprints:ceramik_resonator_murata_CSTCE8M00G52-R0" H 9625 2050 50  0001
 F 3 "~" H 9625 2050 50  0001 C CNN
 F 4 "C907975" H 9650 2050 50  0001 C CNN "LCSC"
 	1    9650 2050
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 Wire Wire Line
 	9500 2050 9400 2050
@@ -552,7 +552,7 @@ F 1 "GND" H 9655 1677 50  0000 C CNN
 F 2 "" H 9650 1850 50  0001 C CNN
 F 3 "" H 9650 1850 50  0001 C CNN
 	1    9650 1850
-	-1   0    0    1   
+	-1   0    0    1
 $EndComp
 $Comp
 L Device:C C1
@@ -564,7 +564,7 @@ F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1788 4150 50  
 F 3 "~" H 1750 4300 50  0001 C CNN
 F 4 "C49678" V 1750 4300 50  0001 C CNN "LCSC"
 	1    1750 4300
-	0    1    1    0   
+	0    1    1    0
 $EndComp
 Wire Wire Line
 	2150 4300 1900 4300
