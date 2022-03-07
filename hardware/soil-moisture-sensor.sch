@@ -44,6 +44,7 @@ F 1 "SW_Push" H 5450 4550 50  0000 L CNN
 F 2 "MyFootprints:Button_2P_TS-1088-AR02016" H 5550 4550 50  0001 C CNN
 F 3 "~" H 5550 4550 50  0001 C CNN
 F 4 "C720477" H 5550 4350 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 5550 4350 50  0001 C CNN "Config"
 	1    5550 4350
 	-1   0    0    1
 $EndComp
@@ -68,6 +69,7 @@ F 1 "AVR ISP" H 1258 5190 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1150 4900 50  0001 C CNN
 F 3 "~" H 1150 4900 50  0001 C CNN
 F 4 "C2833331" H 1150 4900 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 1150 4900 50  0001 C CNN "Config"
 	1    1150 4900
 	1    0    0    -1
 $EndComp
@@ -105,6 +107,7 @@ F 1 "10K" V 1550 6600 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 1580 6700 50  0001 C CNN
 F 3 "~" H 1650 6700 50  0001 C CNN
 F 4 "C17414" V 1650 6700 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 1650 6700 50  0001 C CNN "Config"
 	1    1650 6700
 	0    1    1    0
 $EndComp
@@ -117,6 +120,7 @@ F 1 "D_Schottky" H 2500 6574 50  0000 C CNN
 F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 2500 6700 50  0001 C CNN
 F 3 "~" H 2500 6700 50  0001 C CNN
 F 4 "C154819" H 2500 6700 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 2500 6700 50  0001 C CNN "Config"
 	1    2500 6700
 	-1   0    0    1
 $EndComp
@@ -129,6 +133,7 @@ F 1 "1uF" H 2965 7005 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2888 6900 50  0001 C CNN
 F 3 "~" H 2850 7050 50  0001 C CNN
 F 4 "C28323" H 2850 7050 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 2850 7050 50  0001 C CNN "Config"
 	1    2850 7050
 	1    0    0    -1
 $EndComp
@@ -141,6 +146,7 @@ F 1 "510K" H 3000 7100 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3180 7050 50  0001 C CNN
 F 3 "~" H 3250 7050 50  0001 C CNN
 F 4 "C17733" H 3250 7050 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 3250 7050 50  0001 C CNN "Config"
 	1    3250 7050
 	-1   0    0    1
 $EndComp
@@ -228,6 +234,7 @@ F 1 "220uF" H 2450 1850 50  0000 L CNN
 F 2 "Capacitor_SMD:CP_Elec_6.3x7.7" H 2838 1650 50  0001 C CNN
 F 3 "~" H 2800 1800 50  0001 C CNN
 F 4 "C127327" H 2800 1800 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 2800 1800 50  0001 C CNN "Config"
 	1    2800 1800
 	-1   0    0    1
 $EndComp
@@ -240,6 +247,7 @@ F 1 "1uF" H 3415 1755 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3338 1650 50  0001 C CNN
 F 3 "~" H 3300 1800 50  0001 C CNN
 F 4 "C28323" H 3300 1800 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 3300 1800 50  0001 C CNN "Config"
 	1    3300 1800
 	1    0    0    -1
 $EndComp
@@ -297,6 +305,7 @@ F 1 "10K" V 5400 3800 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5430 3900 50  0001 C CNN
 F 3 "~" H 5500 3900 50  0001 C CNN
 F 4 "C17414" V 5500 3900 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 5500 3900 50  0001 C CNN "Config"
 	1    5500 3900
 	0    1    1    0
 $EndComp
@@ -325,6 +334,7 @@ F 1 "FTDI" H 1258 4290 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 1150 4000 50  0001 C CNN
 F 3 "~" H 1150 4000 50  0001 C CNN
 F 4 "C2833331" H 1150 4000 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 1150 4000 50  0001 C CNN "Config"
 	1    1150 4000
 	1    0    0    -1
 $EndComp
@@ -363,6 +373,7 @@ F 1 "ATmega328P-AU" H 8300 2000 50  0000 C CNN
 F 2 "Package_QFP:TQFP-32_7x7mm_P0.8mm" H 8400 2900 50  0001 C CIN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega328_P%20AVR%20MCU%20with%20picoPower%20Technology%20Data%20Sheet%2040001984A.pdf" H 8400 2900 50  0001 C CNN
 F 4 "C14877" H 8400 2900 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 8400 2900 50  0001 C CNN "Config"
 	1    8400 2900
 	1    0    0    -1
 $EndComp
@@ -399,6 +410,7 @@ F 1 "ATSHA204A" H 10680 2862 40  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23_Handsoldering" H 10400 2900 30  0001 C CIN
 F 3 "http://www.atmel.com/Images/Atmel-8885-CryptoAuth-ATSHA204A-Datasheet.pdf" H 10680 2824 60  0001 L CNN
 F 4 "C34377" H 10650 2900 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 10650 2900 50  0001 C CNN "Config"
 	1    10650 2900
 	1    0    0    -1
 $EndComp
@@ -502,6 +514,7 @@ F 1 "10K" V 9900 2500 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9930 2600 50  0001 C CNN
 F 3 "~" H 10000 2600 50  0001 C CNN
 F 4 "C17414" V 10000 2600 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 10000 2600 50  0001 C CNN "Config"
 	1    10000 2600
 	-1   0    0    1
 $EndComp
@@ -528,6 +541,7 @@ F 1 "Resonator" H 9650 2296 50  0000 C CNN
 F 2 "MyFootprints:ceramik_resonator_murata_CSTCE8M00G52-R0" H 9625 2050 50  0001 C CNN
 F 3 "~" H 9625 2050 50  0001 C CNN
 F 4 "C907975" H 9650 2050 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 9650 2050 50  0001 C CNN "Config"
 	1    9650 2050
 	-1   0    0    1
 $EndComp
@@ -563,6 +577,7 @@ F 1 "100nF" V 1900 4200 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1788 4150 50  0001 C CNN
 F 3 "~" H 1750 4300 50  0001 C CNN
 F 4 "C49678" V 1750 4300 50  0001 C CNN "LCSC"
+F 5 "+rotated" H 1750 4300 50  0001 C CNN "Config"
 	1    1750 4300
 	0    1    1    0
 $EndComp
