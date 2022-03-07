@@ -1,4 +1,5 @@
 (fp_lib_table
   (lib (name MyFootprints)(type KiCad)(uri ${KIPRJMOD}/lib/custom_footprints.pretty)(options "")(descr ""))
   (lib (name mysensors_radios)(type KiCad)(uri ${KIPRJMOD}/lib/mysensors_radios.pretty)(options "")(descr ""))
+  (lib (name local_footprints)(type KiCad)(uri ${KIPRJMOD}/lib/local_footprints.pretty)(options "")(descr ""))
 )

@@ -182,7 +182,7 @@ U 1 1 5F27BC8B
 P 1800 1750
 F 0 "U2" H 2180 1796 50  0000 L CNN
 F 1 "NRF24L01_Breakout" H 2180 1705 50  0000 L CNN
-F 2 "mysensors_radios:NRF24L01-SMD" H 1950 2350 50  0001 L CIN
+F 2 "local_footprints:NRF24L01-SMD" H 1950 2350 50  0001 L CIN
 F 3 "http://www.nordicsemi.com/eng/content/download/2730/34105/file/nRF24L01_Product_Specification_v2_0.pdf" H 1800 1650 50  0001 C CNN
 	1    1800 1750
 	-1   0    0    1
