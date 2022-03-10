@@ -1,0 +1,59 @@
+# This KiBot script generates common documentation files for a two layer board design,
+# including PDF schematics, PDF front and back board images, an interactive HTML BOM,
+# JPEG renders of the PCB, and a STEP 3D model. Note that the STEP 3D model generation
+# will throw a ton of warnings and errors but does actually work.
+kibot:
+  version: 1
+
+filters:
+  - name: 'filter_dnf_components'
+    type: 'generic'
+    comment: "Exclude components that can't be placed"
+    exclude_any:
+      - column: References
+        regex: 'REF\*\*'
+      - column: Footprint
+        regex: 'Capacitive_Soil_Moisture_Sensor'
+
+outputs:
+  - name: "Schematic PDF"
+    comment: "PDF - schematic"
+    type: pdf_sch_print
+    dir: "hardware/Documentation"
+
+  - name: "Interactive HTML BOM"
+    comment: "BOM - Interactive"
+    type: ibom
+    dir: "hardware/Documentation"
+    options:
+      dark_mode: True
+      dnf_filter: 'filter_dnf_components'
+
+  - name: pcb_top
+    comment: "Renders - top"
+    type: pcbdraw
+    dir: "hardware/Documentation"
+    options:
+      output: "%f-%i.%x"
+      format: jpg
+      show_components: none
+      dpi: 600
+
+  - name: pcb_bot
+    comment: "Renders - bottom"
+    type: pcbdraw
+    dir: "hardware/Documentation"
+    options:
+      output: "%f-%i.%x"
+      format: jpg
+      bottom: True
+      show_components: none
+      dpi: 600
+
+  - name: step
+    comment: "Renders - 3D model (STEP)"
+    type: step
+    dir: "hardware/Documentation"
+    options:
+      metric_units: true
+      origin: 85,66.2

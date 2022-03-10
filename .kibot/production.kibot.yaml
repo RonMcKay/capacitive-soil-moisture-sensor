@@ -1,0 +1,24 @@
+# This KiBot script generates gerbers, drill, bom, and position files for submitting
+# two layer boards to PCBWay.
+kibot:
+  version: 1
+
+filters:
+  - name: 'only_jlc_parts'
+    comment: 'Only parts with JLC (LCSC) code'
+    type: generic
+    include_only:
+      - column: 'LCSC'
+        regex: '^C\d+'
+
+variants:
+  - name: 'rotated'
+    comment: 'Just a place holder for the rotation filter'
+    type: kibom
+    variant: rotated
+    pre_transform: _rot_footprint
+
+import:
+  - includes/JLCPCB.kibot.yaml
+  - includes/JLCPCB_position.kibot.yaml
+  - includes/PCBWay.kibot.yaml
