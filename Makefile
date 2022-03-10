@@ -15,7 +15,6 @@ all: test documentation production
 documentation:
 	docker run --rm \
 		--user ${USER_ID}:${GROUP_ID} \
-		--env MYSLOCAL=${MYSLOCAL} \
 		--workdir=${PWD} \
 		--volume=${PWD}:${PWD} \
 		--volume="/home/${USER}:/home/${USER}:rw" \
@@ -29,7 +28,6 @@ documentation:
 production:
 	docker run --rm \
 		--user ${USER_ID}:${GROUP_ID} \
-		--env MYSLOCAL=${MYSLOCAL} \
 		--workdir=${PWD} \
 		--volume=${PWD}:${PWD} \
 		--volume="/home/${USER}:/home/${USER}:rw" \
@@ -43,7 +41,6 @@ production:
 test:
 	docker run --rm \
 		--user ${USER_ID}:${GROUP_ID} \
-		--env MYSLOCAL=${MYSLOCAL} \
 		--workdir=${PWD} \
 		--volume=${PWD}:${PWD} \
 		--volume="/home/${USER}:/home/${USER}:rw" \
@@ -57,7 +54,6 @@ test:
 interactive:
 	docker run --rm -it \
 		--user ${USER_ID}:${GROUP_ID} \
-		--env MYSLOCAL=${MYSLOCAL} \
 		--workdir=${PWD} \
 		--volume=${PWD}:${PWD} \
 		--volume="/home/${USER}:/home/${USER}:rw" \
