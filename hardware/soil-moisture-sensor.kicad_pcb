@@ -358,6 +358,7 @@
 
   (module MyFootprints:JLCPCB_Tooling_Hole (layer F.Cu) (tedit 600DADE9) (tstamp 600DFFE0)
     (at 149.81 104.76)
+    (attr virtual)
     (fp_text reference REF** (at 0.25 1.55) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -370,6 +371,7 @@
 
   (module MyFootprints:JLCPCB_Tooling_Hole (layer F.Cu) (tedit 600DADE9) (tstamp 600DFEA7)
     (at 149.84 123.1)
+    (attr virtual)
     (fp_text reference REF** (at 0.25 1.55) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -382,6 +384,7 @@
 
   (module MyFootprints:JLCPCB_Tooling_Hole (layer F.Cu) (tedit 600DADE9) (tstamp 600DFFEC)
     (at 67.6 104.76)
+    (attr virtual)
     (fp_text reference REF** (at 0.25 1.55) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
