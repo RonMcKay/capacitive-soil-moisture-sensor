@@ -8,7 +8,7 @@ outputs:
   - name: PCBWay_gerbers
     comment: Gerbers compatible with PCBWay
     type: gerber
-    dir: "hardware/Gerbers/PCBWay"
+    dir: "Gerbers/PCBWay"
     options: &gerber_options
       exclude_edge_layer: true
       exclude_pads_from_silkscreen: true
@@ -40,7 +40,7 @@ outputs:
   - name: PCBWay_drill
     comment: Drill files compatible with PCBWay
     type: excellon
-    dir: "hardware/Gerbers/PCBWay"
+    dir: "Gerbers/PCBWay"
     options:
       metric_units: false
       minimal_header: true
@@ -59,7 +59,7 @@ outputs:
   - name: PCBWay
     comment: ZIP file for PCBWay
     type: compress
-    dir: "hardware/Gerbers/PCBWay"
+    dir: "Gerbers/PCBWay"
     options:
       format: ZIP
       files:

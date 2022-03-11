@@ -19,7 +19,7 @@ variants:
 outputs:
   - name: 'JLCPCB_position'
     comment: "Pick and place file, JLCPCB style"
-    dir: "hardware/PickAndPlace/JLCPCB"
+    dir: "PickAndPlace/JLCPCB"
     type: position
     options:
       output: '%f_cpl_jlc.%x'
@@ -44,7 +44,7 @@ outputs:
 
   - name: 'JLCPCB_bom'
     comment: "BoM for JLCPCB"
-    dir: "hardware/PickAndPlace/JLCPCB"
+    dir: "PickAndPlace/JLCPCB"
     type: bom
     options:
       output: '%f_%i_jlc.%x'

@@ -23,7 +23,7 @@ documentation:
 		--volume="/etc/shadow:/etc/shadow:ro" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash \
-		-c "kibot -c .kibot/documentation.kibot.yaml -b hardware/soil-moisture-sensor.kicad_pcb"
+		-c "kibot -c .kibot/documentation.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
 
 production:
 	docker run --rm \
@@ -36,7 +36,7 @@ production:
 		--volume="/etc/shadow:/etc/shadow:ro" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash \
-		-c "kibot -c .kibot/production.kibot.yaml -b hardware/soil-moisture-sensor.kicad_pcb"
+		-c "kibot -c .kibot/production.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
 
 test:
 	docker run --rm \
@@ -49,7 +49,7 @@ test:
 		--volume="/etc/shadow:/etc/shadow:ro" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash \
-		-c "kibot -c .kibot/test.kibot.yaml -b hardware/soil-moisture-sensor.kicad_pcb"
+		-c "kibot -c .kibot/test.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
 
 interactive:
 	docker run --rm -it \
