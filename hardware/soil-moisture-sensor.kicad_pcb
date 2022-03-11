@@ -1,4 +1,4 @@
-(kicad_pcb (version 20171130) (host pcbnew "(5.1.10)-1")
+(kicad_pcb (version 20171130) (host pcbnew "(5.1.12)-1")
 
   (general
     (thickness 1.6)
@@ -11,8 +11,8 @@
 
   (page A4)
   (title_block
-    (date 2020-08-01)
-    (rev 1.0)
+    (date %%date%%)
+    (rev %%version%%)
   )
 
   (layers
@@ -1029,7 +1029,7 @@
     )
   )
 
-  (gr_text "Licensed under CERN-OHL-P v2\nv1.0" (at 116.3 117.8) (layer F.SilkS)
+  (gr_text "Licensed under CERN-OHL-P v2\n%%version%%" (at 116.3 117.8) (layer F.SilkS)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
   (gr_circle (center 118.55 113.1) (end 118.866228 113.1) (layer B.SilkS) (width 0.65))
