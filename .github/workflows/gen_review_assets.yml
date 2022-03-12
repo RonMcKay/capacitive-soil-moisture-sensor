@@ -1,0 +1,100 @@
+# This workflow setup was modified from: https://github.com/MicroType-Engineering/nuco-v-kibot-test
+# This workflow generates documentation (PDFs, interactive BOMs, board images) and fabrication
+# files for JLCPCB and PCBWay. The version number and date of the design is automatically
+# updated in the schematic file and on the PCB based on the GitHub release version and date.
+
+# To use this workflow in your own repo you need to edit the environment variables in the env: section
+# below.
+name: "KiBot - Review"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Design version"
+        required: true
+        default: "pre-release"
+
+jobs:
+  FabricationAndDocumentation:
+    env:
+      # Set this to the base filename of your project.
+      BaseFileName: soil-moisture-sensor
+      BaseDir: hardware
+      # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
+      Timezone: Europe/Berlin
+      # Set this to the output folder for all of the generated files. Unless you have a very
+      # good reason to change this you should leave it as KiBotOutput.
+      OutputFolder: KiBotOutput
+    runs-on: ubuntu-latest
+
+    # These are all the steps that generate the files.
+    steps:
+      # Check out the files
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      # Get the current date, in the timezone specified above, for use later.
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(TZ='${{ env.Timezone }}' date +'%Y-%m-%d')"
+
+      # Do a string replacement in the schematic file to set the version and date.
+      # Any instance of %%version%% in the schematic gets replaced with the release version.
+      # Any instance of %%date%% in the schematic gets replaced with the release date and time.
+      - name: Set schematic version
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          include: "${{ env.BaseDir }}/*.sch"
+          find: "%%version%%"
+          replace: "${{ github.event.inputs.version }}"
+
+      - name: Set schematic date
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          include: "${{ env.BaseDir }}/*.sch"
+          find: "%%date%%"
+          replace: ${{ steps.date.outputs.date }}
+
+      # Do a string replacement in the PCB file to set the version and date.
+      # Any instance of %%version%% in the schematic gets replaced with the release version.
+      # Any instance of %%date%% in the schematic gets replaced with the release date and time.
+      - name: Set PCB version
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          include: "${{ env.BaseDir }}/*.kicad_pcb"
+          find: "%%version%%"
+          replace: "${{ github.event.inputs.version }}"
+
+      - name: Set PCB date
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          include: "${{ env.BaseDir }}/*.kicad_pcb"
+          find: "%%date%%"
+          replace: ${{ steps.date.outputs.date }}
+
+      # Actually run KiBot to generate all the files. The KiBot script used is
+      # in the .kibot/release.kibot.yaml folder.
+      - name: Generate documentation files
+        uses: INTI-CMNB/KiBot@v1
+        with:
+          config: .kibot/documentation.kibot.yaml
+          dir: ${{ env.OutputFolder }}
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
+          board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
+
+      - name: Generate production files
+        uses: INTI-CMNB/KiBot@v1
+        with:
+          config: .kibot/production.kibot.yaml
+          dir: ${{ env.OutputFolder }}
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
+          board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
+
+      # Upload all the files for review
+      - name: Upload review files
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.BaseFileName }}-${{ github.event.inputs.version }}-${{ steps.date.outputs.date }}
+          path: ${{ env.OutputFolder }}/**
