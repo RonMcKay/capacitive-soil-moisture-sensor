@@ -37,8 +37,8 @@ jobs:
         uses: battila7/get-version-action@v2
         if: startsWith(github.ref, 'refs/tags/')
 
-      # Get the current date and time, in the timezone specified above, for use later.
-      - name: Get current date and time
+      # Get the current date, in the timezone specified above, for use later.
+      - name: Get current date
         id: date
         run: echo "::set-output name=date::$(TZ='${{ env.Timezone }}' date +'%Y-%m-%d')"
 
@@ -50,7 +50,7 @@ jobs:
         with:
           include: "${{ env.BaseDir }}/*.sch"
           find: "%%version%%"
-          replace: "${{ steps.get_version.outputs.version }}"
+          replace: "${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}"
 
       - name: Set schematic date
         uses: jacobtomlinson/gha-find-replace@master
