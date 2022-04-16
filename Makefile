@@ -15,12 +15,13 @@ all: test documentation production
 documentation:
 	docker run --rm \
 		--user ${USER_ID}:${GROUP_ID} \
-		--workdir=${PWD} \
-		--volume=${PWD}:${PWD} \
-		--volume="/home/${USER}:/home/${USER}:rw" \
+		--workdir="/home/${USER}/workdir" \
+		--volume=${PWD}:/home/${USER}/workdir \
 		--volume="/etc/group:/etc/group:ro" \
 		--volume="/etc/passwd:/etc/passwd:ro" \
 		--volume="/etc/shadow:/etc/shadow:ro" \
+		--volume="/home/${USER}/.config/kicad:/home/${USER}/.config/kicad:rw" \
+		--volume="/home/${USER}/.cache/kicad:/home/${USER}/.cache/kicad:rw" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash \
 		-c "kibot -c .kibot/documentation.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
@@ -28,12 +29,13 @@ documentation:
 production:
 	docker run --rm \
 		--user ${USER_ID}:${GROUP_ID} \
-		--workdir=${PWD} \
-		--volume=${PWD}:${PWD} \
-		--volume="/home/${USER}:/home/${USER}:rw" \
+		--workdir="/home/${USER}/workdir" \
+		--volume=${PWD}:/home/${USER}/workdir \
 		--volume="/etc/group:/etc/group:ro" \
 		--volume="/etc/passwd:/etc/passwd:ro" \
 		--volume="/etc/shadow:/etc/shadow:ro" \
+		--volume="/home/${USER}/.config/kicad:/home/${USER}/.config/kicad:rw" \
+		--volume="/home/${USER}/.cache/kicad:/home/${USER}/.cache/kicad:rw" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash \
 		-c "kibot -c .kibot/production.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
@@ -41,12 +43,13 @@ production:
 test:
 	docker run --rm \
 		--user ${USER_ID}:${GROUP_ID} \
-		--workdir=${PWD} \
-		--volume=${PWD}:${PWD} \
-		--volume="/home/${USER}:/home/${USER}:rw" \
+		--workdir="/home/${USER}/workdir" \
+		--volume=${PWD}:/home/${USER}/workdir \
 		--volume="/etc/group:/etc/group:ro" \
 		--volume="/etc/passwd:/etc/passwd:ro" \
 		--volume="/etc/shadow:/etc/shadow:ro" \
+		--volume="/home/${USER}/.config/kicad:/home/${USER}/.config/kicad:rw" \
+		--volume="/home/${USER}/.cache/kicad:/home/${USER}/.cache/kicad:rw" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash \
 		-c "kibot -c .kibot/test.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
@@ -54,12 +57,13 @@ test:
 interactive:
 	docker run --rm -it \
 		--user ${USER_ID}:${GROUP_ID} \
-		--workdir=${PWD} \
-		--volume=${PWD}:${PWD} \
-		--volume="/home/${USER}:/home/${USER}:rw" \
+		--workdir="/home/${USER}/workdir" \
+		--volume=${PWD}:/home/${USER}/workdir \
 		--volume="/etc/group:/etc/group:ro" \
 		--volume="/etc/passwd:/etc/passwd:ro" \
 		--volume="/etc/shadow:/etc/shadow:ro" \
+		--volume="/home/${USER}/.config/kicad:/home/${USER}/.config/kicad:rw" \
+		--volume="/home/${USER}/.cache/kicad:/home/${USER}/.cache/kicad:rw" \
 		--volume="/usr/share/kicad:/usr/share/kicad" \
 		${IMAGE_NAME} /bin/bash
 
