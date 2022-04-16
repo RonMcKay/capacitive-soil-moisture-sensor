@@ -5,6 +5,7 @@
 *.bck
 *.kicad_pcb-bak
 *.kicad_sch-bak
+*.pro-bak
 *.kicad_prl
 *.sch-bak
 *~
@@ -12,9 +13,10 @@ _autosave-*
 *.tmp
 *-save.pro
 *-save.kicad_pcb
-*-cache.lib
 *-rescue.lib
 fp-info-cache
+*-drc.txt
+*-erc.txt
 
 # Netlist files (exported from Eeschema)
 *.net
@@ -26,10 +28,13 @@ fp-info-cache
 # Exported BOM files and schematics
 *.xml
 *.csv
+*.tsv
 *.pdf
 
 # Production/Gerber Files
-hardware/production
+hardware/Documentation
+hardware/Renders
+hardware/Gerbers
 *.gbl
 *.gbs
 *.gbp

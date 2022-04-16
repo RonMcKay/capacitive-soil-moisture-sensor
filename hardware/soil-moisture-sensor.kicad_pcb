@@ -1,4 +1,4 @@
-(kicad_pcb (version 20171130) (host pcbnew "(5.1.10)-1")
+(kicad_pcb (version 20171130) (host pcbnew "(5.1.12)-1")
 
   (general
     (thickness 1.6)
@@ -11,8 +11,8 @@
 
   (page A4)
   (title_block
-    (date 2020-08-01)
-    (rev 1.0)
+    (date %%date%%)
+    (rev %%version%%)
   )
 
   (layers
@@ -189,6 +189,48 @@
     (add_net /Sensor_Track)
   )
 
+  (module local_footprints:NRF24L01-SMD (layer F.Cu) (tedit 62254534) (tstamp 5F25EA42)
+    (at 71.8 112.6)
+    (path /5F27BC8B)
+    (fp_text reference U2 (at 0 1.1) (layer F.SilkS) hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_text value NRF24L01_Breakout (at 0 2.8825) (layer F.Fab)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+    (fp_line (start -6 -2.8) (end 6 -2.8) (layer Dwgs.User) (width 0.15))
+    (fp_line (start -6 8.7) (end -6 -9.3) (layer F.CrtYd) (width 0.15))
+    (fp_line (start 6 8.7) (end -6 8.7) (layer F.CrtYd) (width 0.15))
+    (fp_line (start 6 -9.3) (end 6 8.7) (layer F.CrtYd) (width 0.15))
+    (fp_line (start -6 -9.3) (end 6 -9.3) (layer F.CrtYd) (width 0.15))
+    (pad 8 smd rect (at 4.49 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 31 "Net-(U2-Pad8)"))
+    (pad 7 smd rect (at 3.22 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 3 MISO))
+    (pad 6 smd rect (at 1.95 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 5 MOSI))
+    (pad 5 smd rect (at 0.68 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 4 SCK))
+    (pad 4 smd rect (at -0.59 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 11 CSN))
+    (pad 3 smd rect (at -1.86 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 10 CE))
+    (pad 1 smd rect (at -3.13 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 1 GND))
+    (pad 2 smd rect (at -4.4 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
+      (net 15 +BATT))
+    (model ${KIPRJMOD}/lib/mysensors.3dshapes/mysensors_radios.3dshapes/nrf24smd.wrl
+      (offset (xyz -146.3674978017807 73.65999889373779 0.7619999885559082))
+      (scale (xyz 0.395 0.395 0.395))
+      (rotate (xyz 0 0 0))
+    )
+    (model Housings_DFN_QFN.3dshapes/QFN-20-1EP_5x5mm_Pitch0.65mm.wrl
+      (offset (xyz 0.4190999937057495 -2.7685999584198 1.574799976348877))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
+  )
+
   (module MyFootprints:BatteryHolder_Keystone_597_591_2AAA_3V locked (layer F.Cu) (tedit 6045127B) (tstamp 5F3ADA1F)
     (at 116.3 114.2 180)
     (path /5F29204B)
@@ -275,52 +317,6 @@
     )
   )
 
-  (module mysensors_radios:NRF24L01-SMD (layer F.Cu) (tedit 60401267) (tstamp 5F25EA42)
-    (at 71.8 112.6)
-    (path /5F27BC8B)
-    (fp_text reference U2 (at 0 1.1) (layer F.SilkS) hide
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (fp_text value NRF24L01_Breakout (at 0 2.8825) (layer F.Fab)
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (fp_line (start 5.5 -2.8) (end 6 -3.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start 6 -5.3) (end 3.5 -2.8) (layer Dwgs.User) (width 0.12))
-    (fp_line (start 1.5 -2.8) (end 6 -7.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start -0.5 -2.8) (end 6 -9.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start -2.5 -2.8) (end 4 -9.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start 2 -9.3) (end -4.5 -2.8) (layer Dwgs.User) (width 0.12))
-    (fp_line (start 0 -9.3) (end -6 -3.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start -6 -5.3) (end -2 -9.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start -4 -9.3) (end -6 -7.3) (layer Dwgs.User) (width 0.12))
-    (fp_line (start -6 -9.3) (end 6 -9.3) (layer F.CrtYd) (width 0.15))
-    (fp_line (start 6 -9.3) (end 6 8.7) (layer F.CrtYd) (width 0.15))
-    (fp_line (start 6 8.7) (end -6 8.7) (layer F.CrtYd) (width 0.15))
-    (fp_line (start -6 8.7) (end -6 -9.3) (layer F.CrtYd) (width 0.15))
-    (fp_line (start -6 -2.8) (end 6 -2.8) (layer F.CrtYd) (width 0.15))
-    (pad 8 smd rect (at 4.49 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 31 "Net-(U2-Pad8)"))
-    (pad 7 smd rect (at 3.22 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 3 MISO))
-    (pad 6 smd rect (at 1.95 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 5 MOSI))
-    (pad 5 smd rect (at 0.68 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 4 SCK))
-    (pad 4 smd rect (at -0.59 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 11 CSN))
-    (pad 3 smd rect (at -1.86 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 10 CE))
-    (pad 1 smd rect (at -3.13 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 1 GND))
-    (pad 2 smd rect (at -4.4 8.7) (size 1 2) (layers F.Cu F.Paste F.Mask)
-      (net 15 +BATT))
-    (model ${MYSLOCAL}/mysensors.3dshapes/mysensors_radios.3dshapes/nrf24smd.wrl
-      (offset (xyz -146.3674978017807 73.65999889373779 0.7619999885559082))
-      (scale (xyz 0.395 0.395 0.395))
-      (rotate (xyz 0 0 0))
-    )
-  )
-
   (module MyFootprints:Button_2P_TS-1088-AR02016 (layer B.Cu) (tedit 600DB114) (tstamp 600DC48D)
     (at 119.4 107)
     (path /5F23EAF6)
@@ -362,6 +358,7 @@
 
   (module MyFootprints:JLCPCB_Tooling_Hole (layer F.Cu) (tedit 600DADE9) (tstamp 600DFFE0)
     (at 149.81 104.76)
+    (attr virtual)
     (fp_text reference REF** (at 0.25 1.55) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -374,6 +371,7 @@
 
   (module MyFootprints:JLCPCB_Tooling_Hole (layer F.Cu) (tedit 600DADE9) (tstamp 600DFEA7)
     (at 149.84 123.1)
+    (attr virtual)
     (fp_text reference REF** (at 0.25 1.55) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -386,6 +384,7 @@
 
   (module MyFootprints:JLCPCB_Tooling_Hole (layer F.Cu) (tedit 600DADE9) (tstamp 600DFFEC)
     (at 67.6 104.76)
+    (attr virtual)
     (fp_text reference REF** (at 0.25 1.55) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -1030,7 +1029,7 @@
     )
   )
 
-  (gr_text "Licensed under CERN-OHL-P v2\nv1.0" (at 116.3 117.8) (layer F.SilkS)
+  (gr_text "Licensed under CERN-OHL-P v2\n%%version%%" (at 116.3 117.8) (layer F.SilkS)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
   (gr_circle (center 118.55 113.1) (end 118.866228 113.1) (layer B.SilkS) (width 0.65))
