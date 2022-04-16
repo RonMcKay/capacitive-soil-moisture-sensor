@@ -48,7 +48,7 @@ jobs:
         with:
           include: "${{ env.BaseDir }}/*.sch"
           find: "%%version%%"
-          replace: "${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}"
+          replace: "${{ github.event.inputs.version }}"
 
       - name: Set schematic date
         uses: jacobtomlinson/gha-find-replace@master
@@ -65,7 +65,7 @@ jobs:
         with:
           include: "${{ env.BaseDir }}/*.kicad_pcb"
           find: "%%version%%"
-          replace: "${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}"
+          replace: "${{ github.event.inputs.version }}"
 
       - name: Set PCB date
         uses: jacobtomlinson/gha-find-replace@master
