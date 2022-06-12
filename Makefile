@@ -54,6 +54,10 @@ test:
 		${IMAGE_NAME} /bin/bash \
 		-c "kibot -c .kibot/test.kibot.yaml -d ./hardware -e hardware/soil-moisture-sensor.sch -b hardware/soil-moisture-sensor.kicad_pcb"
 
+case:
+	openscad hardware/case/case.scad -o hardware/case/base.stl -D 'part="base"'
+	openscad hardware/case/case.scad -o hardware/case/shell.stl -D 'part="shell"'
+
 interactive:
 	docker run --rm -it \
 		--user ${USER_ID}:${GROUP_ID} \
@@ -71,3 +75,5 @@ clean:
 	rm -rf hardware/Documentation
 	rm -rf hardware/Gerbers
 	rm -rf hardware/PickAndPlace
+	rm hardware/case/base.stl
+	rm hardware/case/shell.stl
