@@ -10,7 +10,7 @@ base_thickness=1.2;
 text_depth=0.5;
 
 // Case settings
-height=80;  // height of the hole case measured from the center of the mounting screw holes
+height=82;  // height of the hole case measured from the center of the mounting screw holes
 fillet_radius=3;
 rim_thickness=2;
 rim_height=10;
@@ -121,24 +121,33 @@ if(part == "base" || part == "all"){
 
 // Shell
 if(part == "shell" || part == "all"){
-    translate([total_width + 1, 0, base_thickness + wall_thickness + tol + height]) rotate([180, 0, 0])
-        difference(){
-            union(){
-                translate([0, 0, base_thickness + tol]) union(){
-                    linear_extrude(height) difference(){
-                        offset(r=fillet_radius) offset(r=-fillet_radius) square([total_width, total_depth], center=true);
-                        offset(r=(fillet_radius - wall_thickness)) offset(r=-(fillet_radius - wall_thickness))
-                            square([total_width - 2 * wall_thickness, total_depth - 2 * wall_thickness], center=true);
+    translate([total_width + 1, 0, base_thickness + wall_thickness + tol + height + (post_height - screw_hole_center_to_post_top)])
+        rotate([180, 0, 0])
+            difference(){
+                union(){
+                    translate([0, 0, base_thickness + tol]) union(){
+                        linear_extrude(height + (post_height - screw_hole_center_to_post_top)) difference(){
+                            offset(r=fillet_radius) offset(r=-fillet_radius) square([total_width, total_depth], center=true);
+                            offset(r=(fillet_radius - wall_thickness)) offset(r=-(fillet_radius - wall_thickness))
+                                square([total_width - 2 * wall_thickness, total_depth - 2 * wall_thickness], center=true);
+                        };
+                        translate([-inner_width / 2 - rim_thickness - press_fit_tol, 0, rim_height / 2 + tol])
+                            lock_edge(length=lock_edge_length - 2 * tol);
+                        translate([+inner_width / 2 + rim_thickness + press_fit_tol, 0, rim_height / 2 + tol]) rotate([0, 180, 0])
+                            lock_edge(length=lock_edge_length - 2 * tol);
                     };
-                    translate([-inner_width / 2 - rim_thickness - press_fit_tol, 0, rim_height / 2 + tol])
-                        lock_edge(length=lock_edge_length - 2 * tol);
-                    translate([+inner_width / 2 + rim_thickness + press_fit_tol, 0, rim_height / 2 + tol]) rotate([0, 180, 0])
-                        lock_edge(length=lock_edge_length - 2 * tol);
+                    translate([0, 0, base_thickness + tol + height + (post_height - screw_hole_center_to_post_top)])
+                        linear_extrude(wall_thickness)
+                            offset(r=fillet_radius) offset(r=-fillet_radius) square([total_width, total_depth], center=true);
                 };
-                translate([0, 0, base_thickness + tol + height]) linear_extrude(wall_thickness)
-                    offset(r=fillet_radius) offset(r=-fillet_radius) square([total_width, total_depth], center=true);
+                translate(
+                    [
+                        0,
+                        0,
+                        base_thickness + tol + height + (post_height - screw_hole_center_to_post_top) + min(text_depth, wall_thickness / 2)
+                    ]
+                )
+                    rotate([180, 0, 0])
+                        linear_extrude(text_depth + 0.1) text(text=release_version, size=pcb_top_depth - 3, halign="center", valign="center");
             };
-            translate([0, 0, base_thickness + tol + height + min(text_depth, wall_thickness / 2)]) rotate([180, 0, 0])
-                   linear_extrude(text_depth + 0.1) text(text=release_version, size=pcb_top_depth - 3, halign="center", valign="center");
-        }
 }
