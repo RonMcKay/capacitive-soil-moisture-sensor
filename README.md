@@ -34,7 +34,7 @@ For programming and burning the bootloader I use [Visual Studio Code](https://co
 together with [PlatformIO](https://platformio.org/) and [MiniCore](https://github.com/MCUdude/MiniCore)
 (which is already included in the platform io plugin for vs code).
 
-You can generate production/documentation files and run ERC/DRC tests by running `make` in the root directory. All production files are then placed under the hardware directory. The Makefile utilizes [docker](https://www.docker.com/) containers so you should have docker installed.
+You can generate production/documentation files and run ERC/DRC tests by running `make` in the root directory. All production files are then placed under the hardware directory. The Makefile utilizes [docker](https://www.docker.com/) containers so you should have docker installed. Note that the folders `.config/kicad` and `.cache/kicad` should already exist in your home directory.
 
 ## Contributing
 

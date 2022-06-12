@@ -14,6 +14,10 @@ on:
         description: "Design version"
         required: true
         default: "pre-release"
+      date:
+        description: "Date of release"
+        required: false
+        default: ''
 
 jobs:
   FabricationAndDocumentation:
@@ -37,7 +41,8 @@ jobs:
 
       # Get the current date, in the timezone specified above, for use later.
       - name: Get current date
-        id: date
+        id: today
+        if: "${{ github.event.inputs.date != '' }}"
         run: echo "::set-output name=date::$(TZ='${{ env.Timezone }}' date +'%Y-%m-%d')"
 
       # Do a string replacement in the schematic file to set the version and date.
@@ -52,10 +57,19 @@ jobs:
 
       - name: Set schematic date
         uses: jacobtomlinson/gha-find-replace@master
+        if: "${{ github.event.inputs.date == '' }}"
         with:
           include: "${{ env.BaseDir }}/*.sch"
           find: "%%date%%"
-          replace: ${{ steps.date.outputs.date }}
+          replace: ${{ steps.today.outputs.date }}
+
+      - name: Set schematic date
+        uses: jacobtomlinson/gha-find-replace@master
+        if: "${{ github.event.inputs.date != '' }}"
+        with:
+          include: "${{ env.BaseDir }}/*.sch"
+          find: "%%date%%"
+          replace: ${{ github.event.inputs.date }}
 
       # Do a string replacement in the PCB file to set the version and date.
       # Any instance of %%version%% in the schematic gets replaced with the release version.
@@ -69,10 +83,19 @@ jobs:
 
       - name: Set PCB date
         uses: jacobtomlinson/gha-find-replace@master
+        if: "${{ github.event.inputs.date == '' }}"
         with:
           include: "${{ env.BaseDir }}/*.kicad_pcb"
           find: "%%date%%"
-          replace: ${{ steps.date.outputs.date }}
+          replace: ${{ steps.today.outputs.date }}
+
+      - name: Set PCB date
+        uses: jacobtomlinson/gha-find-replace@master
+        if: "${{ github.event.inputs.date != '' }}"
+        with:
+          include: "${{ env.BaseDir }}/*.kicad_pcb"
+          find: "%%date%%"
+          replace: ${{ github.event.inputs.date }}
 
       # Actually run KiBot to generate all the files. The KiBot script used is
       # in the .kibot/release.kibot.yaml folder.
@@ -95,6 +118,15 @@ jobs:
       # Upload all the files for review
       - name: Upload review files
         uses: actions/upload-artifact@v2
+        if: "${{ github.event.inputs.date == '' }}"
         with:
-          name: ${{ env.BaseFileName }}-${{ github.event.inputs.version }}-${{ steps.date.outputs.date }}
+          name: ${{ env.BaseFileName }}-${{ github.event.inputs.version }}-${{ steps.today.outputs.date }}
+          path: ${{ env.OutputFolder }}/**
+
+      # Upload all the files for review
+      - name: Upload review files
+        uses: actions/upload-artifact@v2
+        if: "${{ github.event.inputs.date != '' }}"
+        with:
+          name: ${{ env.BaseFileName }}-${{ github.event.inputs.version }}-${{ github.event.inputs.date }}
           path: ${{ env.OutputFolder }}/**
