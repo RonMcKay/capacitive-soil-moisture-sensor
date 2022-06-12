@@ -1,0 +1,11 @@
+{
+    "parameterSets":
+    {
+        "base": {
+            "part": "base"
+        },
+        "shell": {
+            "part": "shell"
+        }
+    }
+}
