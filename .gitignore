@@ -51,6 +51,9 @@ hardware/Gerbers
 *.drl_map.gbr
 *.gbr
 
+# Case
+*.stl
+
 # -----------------------------------------------------
 # Software
 .pio

@@ -115,6 +115,23 @@ jobs:
           schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
+      # Generate the case STLs
+      - name: Generate case base STL
+        uses: pkoehlers/openscad-build-action@v1
+        with:
+          input-file: "${{ env.BaseDir }}/case/case.scad"
+          output-file: "${{ env.OutputFolder }}/base-${{ github.event.inputs.version }}.stl"
+          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
+          customizer-parameter-set: "base"
+
+      - name: Generate case shell STL
+        uses: pkoehlers/openscad-build-action@v1
+        with:
+          input-file: "${{ env.BaseDir }}/case/case.scad"
+          output-file: "${{ env.OutputFolder }}/shell-${{ github.event.inputs.version }}.stl"
+          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
+          customizer-parameter-set: "shell"
+
       # Upload all the files for review
       - name: Upload review files
         uses: actions/upload-artifact@v2

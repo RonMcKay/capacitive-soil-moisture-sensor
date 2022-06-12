@@ -94,6 +94,23 @@ jobs:
           schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
+      # Generate the case STLs
+      - name: Generate case base STL
+        uses: pkoehlers/openscad-build-action@v1
+        with:
+          input-file: "${{ env.BaseDir }}/case/case.scad"
+          output-file: "${{ env.BaseDir }}/case/base-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl"
+          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
+          customizer-parameter-set: "base"
+
+      - name: Generate case shell STL
+        uses: pkoehlers/openscad-build-action@v1
+        with:
+          input-file: "${{ env.BaseDir }}/case/case.scad"
+          output-file: "${{ env.BaseDir }}/case/shell-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl"
+          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
+          customizer-parameter-set: "shell"
+
       # Install the zip command line tool to package up the output
       - name: Install zip
         uses: montudor/action-zip@v1
@@ -117,3 +134,5 @@ jobs:
           files: |
             ${{ env.BaseFileName }}-documentation.zip
             ${{ env.BaseFileName }}-production.zip
+            ${{ env.BaseDir }}/case/base-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl
+            ${{ env.BaseDir }}/case/shell-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl
