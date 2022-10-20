@@ -7,11 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- 
+- Add header image to README (#10)
 
 ### Changed
 
-- 
+- Compact OpenSCAD case (#9)
 
 ### Deprecated
 
