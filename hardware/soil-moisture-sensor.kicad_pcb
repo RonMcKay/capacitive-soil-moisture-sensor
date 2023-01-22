@@ -11,7 +11,7 @@
 
   (page A4)
   (title_block
-    (date %%date%%)
+    (date 2023-01-22)
     (rev %%version%%)
   )
 

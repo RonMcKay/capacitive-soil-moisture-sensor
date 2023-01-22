@@ -11,6 +11,25 @@ filters:
       - column: 'LCSC'
         regex: '^C\d+'
 
+preflight:
+  # TODO: Use `set_text_variables` instead of `pcb_replace` and `sch_replace` when switching to KiCad 6
+  pcb_replace:
+    date_command: >-
+      date +'%Y-%m-%d'
+    replace_tags:
+      - tag: version
+        tag_delimiter: '%%'
+        command: >-
+          (if [[ ! -z "${DATADIR}" ]]; then cd $DATADIR; fi; git describe --tags --match "v*" HEAD | sed -r 's/^(v[0-9]+\.[0-9]+)\.[0-9]+(.*)$/\1\2/')
+  sch_replace:
+    date_command: >-
+      date +'%Y-%m-%d'
+    replace_tags:
+      - tag: version
+        tag_delimiter: '%%'
+        command: >-
+          (if [[ ! -z "${DATADIR}" ]]; then cd $DATADIR; fi; git describe --tags --match "v*" HEAD | sed -r 's/^(v[0-9]+\.[0-9]+)\.[0-9]+(.*)$/\1\2/')
+
 variants:
   - name: 'rotated'
     comment: 'Just a place holder for the rotation filter'
