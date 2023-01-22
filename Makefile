@@ -24,7 +24,7 @@ documentation:
 		--workdir="${WORKDIR}" \
 		--volume=${PWD}:${DATADIR} \
 		${IMAGE_NAME} /bin/bash \
-		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/documentation.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb -v"
+		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/documentation.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
 
 production:
 	docker run --rm \
