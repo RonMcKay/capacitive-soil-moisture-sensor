@@ -24,7 +24,7 @@ documentation:
 		--workdir="${WORKDIR}" \
 		--volume=${PWD}:${DATADIR} \
 		${IMAGE_NAME} /bin/bash \
-		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/documentation.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
+		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/documentation.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.kicad_sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
 
 production:
 	docker run --rm \
@@ -35,7 +35,7 @@ production:
 		--workdir="${WORKDIR}" \
 		--volume=${PWD}:${DATADIR} \
 		${IMAGE_NAME} /bin/bash \
-		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/production.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
+		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/production.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.kicad_sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
 
 test:
 	docker run --rm \
@@ -46,7 +46,7 @@ test:
 		--workdir="${WORKDIR}" \
 		--volume=${PWD}:${DATADIR} \
 		${IMAGE_NAME} /bin/bash \
-		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/test.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
+		-c "${DATADIR}/.kibot/docker_setup.sh && runuser -u me -- kibot -c ${WORKDIR}/.kibot/test.kibot.yaml -d ${DATADIR}/hardware -e ${WORKDIR}/hardware/soil-moisture-sensor.kicad_sch -b ${WORKDIR}/hardware/soil-moisture-sensor.kicad_pcb"
 
 interactive:
 	docker run -it --rm \

@@ -46,7 +46,7 @@ jobs:
         with:
           config: .kibot/documentation.kibot.yaml
           dir: ${{ env.OutputFolder }}
-          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_sch"
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
       - name: Generate production files
@@ -54,7 +54,7 @@ jobs:
         with:
           config: .kibot/production.kibot.yaml
           dir: ${{ env.OutputFolder }}
-          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_sch"
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
       # Generate the case STLs
