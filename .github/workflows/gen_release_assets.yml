@@ -37,8 +37,8 @@ jobs:
         uses: battila7/get-version-action@v2
         if: startsWith(github.ref, 'refs/tags/')
 
-      # Actually run KiBot to generate all the files. The KiBot script used is
-      # in the .kibot/release.kibot.yaml folder.
+      # Actually run KiBot to generate all the files. The KiBot scripts used are
+      # in the .kibot/ folder.
       - name: Generate documentation files
         uses: INTI-CMNB/KiBot@v1
         with:
