@@ -5,6 +5,9 @@
 kibot:
   version: 1
 
+global:
+  restore_project: true
+
 filters:
   - name: 'filter_dnf_components'
     type: 'generic'

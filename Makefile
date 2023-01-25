@@ -8,7 +8,7 @@ PWD := $(shell pwd)
 MYSLOCAL := $(shell cd ./hardware/lib; pwd)
 IMAGE_NAME := setsoft/kicad_auto:ki6
 DATADIR := /data
-WORKDIR := /home/${USER}/workdir
+WORKDIR := /data
 VERSION := $(shell git describe --tags --match "v*" HEAD | sed -E 's/^(v[0-9]+\.[0-9]+)\.[0-9]+(.*)$$/\1\2/' )
 
 export USER_ID, GROUP_ID, PWD, MYSLOCAL
