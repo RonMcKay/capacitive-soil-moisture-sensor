@@ -34,6 +34,19 @@
   )
 
   (setup
+    (stackup
+      (layer "F.SilkS" (type "Top Silk Screen"))
+      (layer "F.Paste" (type "Top Solder Paste"))
+      (layer "F.Mask" (type "Top Solder Mask") (thickness 0.01))
+      (layer "F.Cu" (type "copper") (thickness 0.035))
+      (layer "dielectric 1" (type "core") (thickness 1.51) (material "FR4") (epsilon_r 4.5) (loss_tangent 0.02))
+      (layer "B.Cu" (type "copper") (thickness 0.035))
+      (layer "B.Mask" (type "Bottom Solder Mask") (thickness 0.01))
+      (layer "B.Paste" (type "Bottom Solder Paste"))
+      (layer "B.SilkS" (type "Bottom Silk Screen"))
+      (copper_finish "None")
+      (dielectric_constraints no)
+    )
     (pad_to_mask_clearance 0.075)
     (pcbplotparams
       (layerselection 0x00010fc_ffffffff)
@@ -69,6 +82,9 @@
       (outputdirectory "production/")
     )
   )
+
+  (property "date" "2023-01-25")
+  (property "version" "pre-release")
 
   (net 0 "")
   (net 1 "GND")
@@ -777,24 +793,20 @@
     (path "/00000000-0000-0000-0000-00005f2e2b27")
     (clearance 2)
     (attr through_hole)
-    (fp_text reference "Sensor1" (at 3.9 0.4) (layer "B.SilkS") hide
+    (fp_text reference "Sensor1" (at 3.9 0.4 180) (layer "B.SilkS") hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
-      (tstamp 37adafcb-466d-40d4-8f0d-8be97b02d949)
+      (tstamp 4c668bf6-89f0-4706-b99c-45102567f5ff)
     )
-    (fp_text value "Conn_01x01" (at 0 0.5) (layer "B.Fab")
+    (fp_text value "Conn_01x01" (at 0 0.5 180) (layer "B.Fab")
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
-      (tstamp 74f13c25-2612-484f-a9fd-0719c0a02cf6)
+      (tstamp acb4e53e-aac2-4d1c-b23b-a2dcb87ee929)
     )
-    (fp_text user "Place this part in soil" (at 0 0.165) (layer "B.SilkS")
+    (fp_text user "Place this part in soil" (at 0 0.165 180) (layer "B.SilkS")
       (effects (font (size 3 3) (thickness 0.3)) (justify mirror))
-      (tstamp 116bcfdb-5a78-4b39-8f48-41e61e0958d3)
-    )
-    (fp_text user "Place this part in soil" (at 0 0.165) (layer "B.SilkS")
-      (effects (font (size 3 3) (thickness 0.3)) (justify mirror))
-      (tstamp dccac4f6-3b90-4de2-99a9-929bf658781f)
+      (tstamp f7039d25-4ba6-4bba-b081-8e0061b4b4d5)
     )
     (pad "1" connect roundrect locked (at 0 0) (size 71.75 9.5) (layers "B.Cu") (roundrect_rratio 0.5)
-      (net 14 "/Sensor_Track") (tstamp be6cc4f4-6ac0-4213-b4b3-977ffabf6e52))
+      (net 14 "/Sensor_Track") (tstamp 96d05df0-976a-4a17-a221-a3c3f4b821ad))
   )
 
   (footprint "Package_TO_SOT_SMD:SOT-23_Handsoldering" (layer "B.Cu")
