@@ -6,8 +6,8 @@
 
   (title_block
     (title "Capacitive Soil Moisture Sensor")
-    (date "2023-01-22")
-    (rev "%%version%%")
+    (date "${date}")
+    (rev "${version}")
     (comment 1 "Philipp Oberdiek ©")
     (comment 2 "Licensed under CERN-OHL-P v2")
   )
