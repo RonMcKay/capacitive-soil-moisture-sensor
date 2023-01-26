@@ -9,15 +9,6 @@ name: "KiBot - Review"
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Design version"
-        required: true
-        default: "pre-release"
-      date:
-        description: "Date of release"
-        required: false
-        default: ''
 
 jobs:
   FabricationAndDocumentation:
@@ -26,7 +17,7 @@ jobs:
       BaseFileName: soil-moisture-sensor
       BaseDir: hardware
       # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
-      Timezone: Europe/Berlin
+      Timezone: Etc/UTC
       # Set this to the output folder for all of the generated files. Unless you have a very
       # good reason to change this you should leave it as KiBotOutput.
       OutputFolder: KiBotOutput
@@ -35,14 +26,28 @@ jobs:
     # These are all the steps that generate the files.
     steps:
       # Check out the files
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
+
+      # Install Openscad
+      - name: Install openscad
+        run: sudo apt-get install -y --no-install-recommends openscad
+
+      # Get current date
+      - name: Get current date
+        id: today
+        run: echo "::set-output name=date::$(TZ=${{ env.Timezone }} date +'%Y-%m-%d')"
+
+      # Get short SHA
+      - name: Set outputs
+        id: sha
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       # Actually run KiBot to generate all the files. The KiBot script used is
       # in the .kibot/release.kibot.yaml folder.
       - name: Generate documentation files
-        uses: INTI-CMNB/KiBot@v1
+        uses: INTI-CMNB/KiBot@v2_k6
         with:
           config: .kibot/documentation.kibot.yaml
           dir: ${{ env.OutputFolder }}
@@ -50,7 +55,7 @@ jobs:
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
       - name: Generate production files
-        uses: INTI-CMNB/KiBot@v1
+        uses: INTI-CMNB/KiBot@v2_k6
         with:
           config: .kibot/production.kibot.yaml
           dir: ${{ env.OutputFolder }}
@@ -59,33 +64,17 @@ jobs:
 
       # Generate the case STLs
       - name: Generate case base STL
-        uses: pkoehlers/openscad-build-action@v1
-        with:
-          input-file: "${{ env.BaseDir }}/case/case.scad"
-          output-file: "${{ env.OutputFolder }}/base-${{ github.event.inputs.version }}.stl"
-          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
-          customizer-parameter-set: "base"
+        run: openscad ${{ env.BaseDir }}/case/case.scad -o base.stl -D 'part="base"'
 
       - name: Generate case shell STL
-        uses: pkoehlers/openscad-build-action@v1
-        with:
-          input-file: "${{ env.BaseDir }}/case/case.scad"
-          output-file: "${{ env.OutputFolder }}/shell-${{ github.event.inputs.version }}.stl"
-          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
-          customizer-parameter-set: "shell"
+        run: openscad ${{ env.BaseDir }}/case/case.scad -o shell.stl -D 'part="shell"'
 
       # Upload all the files for review
       - name: Upload review files
         uses: actions/upload-artifact@v2
-        if: "${{ github.event.inputs.date == '' }}"
         with:
-          name: ${{ env.BaseFileName }}-${{ github.event.inputs.version }}-${{ steps.today.outputs.date }}
-          path: ${{ env.OutputFolder }}/**
-
-      # Upload all the files for review
-      - name: Upload review files
-        uses: actions/upload-artifact@v2
-        if: "${{ github.event.inputs.date != '' }}"
-        with:
-          name: ${{ env.BaseFileName }}-${{ github.event.inputs.version }}-${{ github.event.inputs.date }}
-          path: ${{ env.OutputFolder }}/**
+          name: ${{ env.BaseFileName }}-${{ steps.today.outputs.date }}-${{ steps.sha.outputs.sha_short }}
+          path: |
+            ${{ env.OutputFolder }}/**
+            base.stl
+            shell.stl
