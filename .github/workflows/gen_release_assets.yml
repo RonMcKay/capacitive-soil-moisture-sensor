@@ -18,7 +18,7 @@ jobs:
       BaseFileName: soil-moisture-sensor
       BaseDir: hardware
       # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
-      Timezone: Europe/Berlin
+      Timezone: Etc/UTC
       # Set this to the output folder for all of the generated files. Unless you have a very
       # good reason to change this you should leave it as KiBotOutput.
       OutputFolder: KiBotOutput
@@ -27,9 +27,13 @@ jobs:
     # These are all the steps that generate the files.
     steps:
       # Check out the files
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: 'recursive'
+
+      # Install Openscad
+      - name: Install openscad
+        run: sudo apt-get install -y --no-install-recommends openscad
 
       # Get the version of the GitHub release for use later.
       - name: Get GitHub release version
@@ -40,37 +44,27 @@ jobs:
       # Actually run KiBot to generate all the files. The KiBot scripts used are
       # in the .kibot/ folder.
       - name: Generate documentation files
-        uses: INTI-CMNB/KiBot@v1
+        uses: INTI-CMNB/KiBot@v2_k6
         with:
           config: .kibot/documentation.kibot.yaml
           dir: ${{ env.OutputFolder }}
-          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_sch"
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
       - name: Generate production files
-        uses: INTI-CMNB/KiBot@v1
+        uses: INTI-CMNB/KiBot@v2_k6
         with:
           config: .kibot/production.kibot.yaml
           dir: ${{ env.OutputFolder }}
-          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.sch"
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_sch"
           board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
 
       # Generate the case STLs
       - name: Generate case base STL
-        uses: pkoehlers/openscad-build-action@v1
-        with:
-          input-file: "${{ env.BaseDir }}/case/case.scad"
-          output-file: "${{ env.BaseDir }}/case/base-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl"
-          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
-          customizer-parameter-set: "base"
+        run: openscad ${{ env.BaseDir }}/case/case.scad -o ${{ env.BaseDir }}/case/base-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl -D 'part="base"'
 
       - name: Generate case shell STL
-        uses: pkoehlers/openscad-build-action@v1
-        with:
-          input-file: "${{ env.BaseDir }}/case/case.scad"
-          output-file: "${{ env.BaseDir }}/case/shell-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl"
-          customizer-parameter-file: "${{ env.BaseDir }}/case/case.json"
-          customizer-parameter-set: "shell"
+        run: openscad ${{ env.BaseDir }}/case/case.scad -o ${{ env.BaseDir }}/case/shell-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl -D 'part="shell"'
 
       # Install the zip command line tool to package up the output
       - name: Install zip
