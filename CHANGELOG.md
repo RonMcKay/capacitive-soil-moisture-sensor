@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Feature
 
 - Compact OpenSCAD case (#9)
+- Switch PCB Project to Kicad 6 (#13)
 
 ## 1.0.1 (2021-12-01)
 
