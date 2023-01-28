@@ -1,0 +1,64 @@
+name: "Create New Release"
+
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      increment:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Semver type of increment'
+        # Input has to be provided for the workflow to run
+        required: true
+        type: choice
+        options:
+        - PATCH
+        - MINOR
+        - MAJOR
+
+jobs:
+  GenerateChangelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: Install commitizen
+        run: python3 -m pip install commitizen
+
+      - name: Setup Git
+        run: |
+          git config user.name 'Philipp Oberdiek'
+          git config user.email 'git@oberdiek.net'
+
+      # Get current date
+      - name: Get current date
+        id: today
+        run: echo "date=$(TZ=${{ env.Timezone }} date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      # Bump version and save version information to output
+      - name: Bump version
+        id: bump_version
+        run: |
+          cz bump --yes --increment ${{ github.event.inputs.increment }}
+          echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
+
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: ".github/changelog-config.json"
+          owner: "RonMcKay"
+          repo: "capacitive-soil-moisture-sensor"
+          toTag: "master"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Save changelog to file and remove trailing newlines
+      - name: "Save changelog changes to file"
+        run: echo '${{ steps.build_changelog.outputs.changelog }}' | sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba' > tmp-changelog.md
+
+      # Insert changes into CHANGELOG.md
+      - name: "Add changes to CHANGELOG.md"
+        run: sed -i -E "0,/^## [0-9]+.*$/s/^## [0-9]+.*$/## ${{ steps.bump_version.outputs.version }} (${{ steps.today.outputs.date }})\n\n$(<tmp-changelog.md sed -e 's/[\&/]/\\&/g' -e 's/$/\\n/' | tr -d '\n')\n&/" CHANGELOG.md
+
+      # Jetzt committen, pushen und release erstellen.
