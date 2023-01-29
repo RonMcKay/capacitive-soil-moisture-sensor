@@ -1,5 +1,9 @@
 name: "Create New Release"
 
+permissions:
+  contents: write
+  pull-requests: read
+
 on:
   workflow_dispatch:
     # Inputs the workflow accepts.
@@ -21,9 +25,11 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install commitizen
-        run: python3 -m pip install commitizen
+        run: python3 -m pip install commitizen==2.39.1
 
       - name: Setup Git
         run: |
@@ -35,11 +41,16 @@ jobs:
         id: today
         run: echo "date=$(TZ=${{ env.Timezone }} date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
+      # Get current version
+      - name: Get old version
+        id: old_version
+        run: echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
+
       # Bump version and save version information to output
       - name: Bump version
         id: bump_version
         run: |
-          cz bump --yes --increment ${{ github.event.inputs.increment }}
+          cz bump --files --yes --increment ${{ github.event.inputs.increment }}
           echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
 
       - name: "Build Changelog"
@@ -49,9 +60,10 @@ jobs:
           configuration: ".github/changelog-config.json"
           owner: "RonMcKay"
           repo: "capacitive-soil-moisture-sensor"
-          toTag: "master"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          toTag: "dev"
+          token: ${{ secrets.PAT }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Save changelog to file and remove trailing newlines
       - name: "Save changelog changes to file"
@@ -61,4 +73,13 @@ jobs:
       - name: "Add changes to CHANGELOG.md"
         run: sed -i -E "0,/^## [0-9]+.*$/s/^## [0-9]+.*$/## ${{ steps.bump_version.outputs.version }} (${{ steps.today.outputs.date }})\n\n$(<tmp-changelog.md sed -e 's/[\&/]/\\&/g' -e 's/$/\\n/' | tr -d '\n')\n&/" CHANGELOG.md
 
-      # Jetzt committen, pushen und release erstellen.
+      # Commit changes and push with new tag
+      - name: "Commit version bump and changelog update and push"
+        run: |
+          git add -u
+          git commit -m "bump: ${{ steps.old_version.outputs.version }} → ${{ steps.bump_version.outputs.version }}"
+          git tag -a -m "v${{ steps.bump_version.outputs.version }}" v${{ steps.bump_version.outputs.version }}
+          git push --follow-tags
+          
+      - name: "Create release"
+        run: GH_TOKEN=${{ github.token }} gh release create v${{ steps.bump_version.outputs.version }} --notes-file tmp-changelog.md --title v${{ steps.bump_version.outputs.version }}
