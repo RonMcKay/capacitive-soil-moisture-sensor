@@ -5,7 +5,7 @@
 
 # To use this workflow in your own repo you need to edit the environment variables in the env: section
 # below.
-name: "KiBot - Review"
+name: "Manual Review Assets"
 
 on:
   workflow_dispatch:
