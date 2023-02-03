@@ -1,0 +1,176 @@
+name: "Create New Release"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+    # Inputs the workflow accepts.
+    inputs:
+      increment:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Semver type of increment'
+        # Input has to be provided for the workflow to run
+        required: true
+        type: choice
+        options:
+        - PATCH
+        - MINOR
+        - MAJOR
+
+jobs:
+  CreateRelease:
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.bump_version.outputs.version }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install commitizen
+        run: python3 -m pip install commitizen==2.39.1
+
+      - name: Setup Git
+        run: |
+          git config user.name 'Philipp Oberdiek'
+          git config user.email 'git@oberdiek.net'
+
+      # Get current date
+      - name: Get current date
+        id: today
+        run: echo "date=$(TZ=${{ env.Timezone }} date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      # Get current version
+      - name: Get old version
+        id: old_version
+        run: echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
+
+      # Bump version and save version information to output
+      - name: Bump version
+        id: bump_version
+        run: |
+          cz bump --files --yes --increment ${{ github.event.inputs.increment }}
+          echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
+
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: ".github/changelog-config.json"
+          owner: "RonMcKay"
+          repo: "capacitive-soil-moisture-sensor"
+          toTag: "dev"
+          token: ${{ secrets.PAT }}
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Save changelog to file and remove trailing newlines
+      - name: "Save changelog changes to file"
+        run: echo '${{ steps.build_changelog.outputs.changelog }}' | sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba' > tmp-changelog.md
+
+      # Insert changes into CHANGELOG.md
+      - name: "Add changes to CHANGELOG.md"
+        run: sed -i -E "0,/^## [0-9]+.*$/s/^## [0-9]+.*$/## ${{ steps.bump_version.outputs.version }} (${{ steps.today.outputs.date }})\n\n$(<tmp-changelog.md sed -e 's/[\&/]/\\&/g' -e 's/$/\\n/' | tr -d '\n')\n&/" CHANGELOG.md
+
+      # Commit changes and push with new tag
+      - name: "Commit version bump and changelog update and push"
+        run: |
+          git add -u
+          git commit -m "bump: ${{ steps.old_version.outputs.version }} → ${{ steps.bump_version.outputs.version }}"
+          git tag -a -m "v${{ steps.bump_version.outputs.version }}" v${{ steps.bump_version.outputs.version }}
+          git push --follow-tags
+          
+      - name: "Create release"
+        run: GH_TOKEN=${{ github.token }} gh release create v${{ steps.bump_version.outputs.version }} --notes-file tmp-changelog.md --title v${{ steps.bump_version.outputs.version }}
+
+      - name: "Create Pull Request into dev"
+        run: GH_TOKEN=${{ github.token }} gh pr create --assignee "RonMcKay" --base "dev" --head master --title "Changelog v${{ steps.bump_version.outputs.version }} → dev" --body-file "tmp-changelog.md"
+
+  FabricationAndDocumentation:
+    needs: CreateRelease
+    env:
+      # Set this to the base filename of your project.
+      BaseFileName: soil-moisture-sensor
+      BaseDir: hardware
+      # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
+      Timezone: Etc/UTC
+      # Set this to the output folder for all of the generated files. Unless you have a very
+      # good reason to change this you should leave it as KiBotOutput.
+      OutputFolder: KiBotOutput
+    runs-on: ubuntu-latest
+
+    # These are all the steps that generate the files.
+    steps:
+      # Check out the files of the newly tagged version
+      - uses: actions/checkout@v3
+        with:
+          ref: "v${{ needs.CreateRelease.outputs.new_version }}"
+          submodules: 'recursive'
+
+      # Install Openscad
+      - name: Install openscad
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends openscad
+
+      # Get the version of the GitHub release
+      - name: Get GitHub release version
+        id: get_version
+        run: |
+          echo "major=$(echo "${{ needs.CreateRelease.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\1/')" >> $GITHUB_OUTPUT
+          echo "minor=$(echo "${{ needs.CreateRelease.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\2/')" >> $GITHUB_OUTPUT
+          echo "patch=$(echo "${{ needs.CreateRelease.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\3/')" >> $GITHUB_OUTPUT
+
+      # Actually run KiBot to generate all the files. The KiBot scripts used are
+      # in the .kibot/ folder.
+      - name: Generate documentation files
+        uses: INTI-CMNB/KiBot@v2_k6
+        with:
+          config: .kibot/documentation.kibot.yaml
+          dir: ${{ env.OutputFolder }}
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_sch"
+          board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
+
+      - name: Generate production files
+        uses: INTI-CMNB/KiBot@v2_k6
+        with:
+          config: .kibot/production.kibot.yaml
+          dir: ${{ env.OutputFolder }}
+          schema: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_sch"
+          board: "${{ env.BaseDir }}/${{ env.BaseFileName }}.kicad_pcb"
+
+      # Generate the case STLs
+      - name: Generate case base STL
+        run: openscad ${{ env.BaseDir }}/case/case.scad -o ${{ env.BaseDir }}/case/base-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl -D 'part="base"'
+
+      - name: Generate case shell STL
+        run: openscad ${{ env.BaseDir }}/case/case.scad -o ${{ env.BaseDir }}/case/shell-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl -D 'part="shell"'
+
+      # Install the zip command line tool to package up the output
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
+      # Zip all the documentation. Any files in the PCBWay, PDFs, Renders, and Schematic subfolder
+      # are automatically included.
+      - name: Zip documentation
+        run: zip -qq -r "../../${{ env.BaseFileName }}-documentation.zip" .
+        working-directory: ${{ env.OutputFolder }}/Documentation
+
+      - name: Zip production
+        run: zip -qq -r "../../${{ env.BaseFileName }}-production.zip" .
+        working-directory: ${{ env.OutputFolder }}/Gerbers
+
+      # Upload all the zip files to the release.
+      - name: Upload release files
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: "v${{ needs.CreateRelease.outputs.new_version }}"
+          files: |
+            ${{ env.BaseFileName }}-documentation.zip
+            ${{ env.BaseFileName }}-production.zip
+            ${{ env.BaseDir }}/case/base-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl
+            ${{ env.BaseDir }}/case/shell-${{ steps.get_version.outputs.major }}.${{ steps.get_version.outputs.minor }}.stl
