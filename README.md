@@ -2,7 +2,7 @@
 
 <img src="photos/pcb-bottom.png"><img src="photos/pcb-top.png">
 
-![GitHub all releases](https://img.shields.io/github/downloads/ronmckay/capacitive-soil-moisture-sensor/total?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![CERN-OHL-P v2](https://img.shields.io/badge/license-CERN--OHL--P%20v2-brightgreen)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ronmckay/capacitive-soil-moisture-sensor) ![GitHub all releases](https://img.shields.io/github/downloads/ronmckay/capacitive-soil-moisture-sensor/total?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![CERN-OHL-P v2](https://img.shields.io/badge/license-CERN--OHL--P%20v2-brightgreen)
 
 # Capacitive Soil Moisture Sensor
 
