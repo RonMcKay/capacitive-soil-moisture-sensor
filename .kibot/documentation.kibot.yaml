@@ -48,7 +48,7 @@ outputs:
     dir: "Documentation"
     options:
       output: "%f-%i.%x"
-      format: jpg
+      format: png
       show_components: none
       dpi: 600
 
@@ -58,7 +58,7 @@ outputs:
     dir: "Documentation"
     options:
       output: "%f-%i.%x"
-      format: jpg
+      format: png
       bottom: True
       show_components: none
       dpi: 600
