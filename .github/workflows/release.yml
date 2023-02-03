@@ -77,6 +77,14 @@ jobs:
       - name: "Add changes to CHANGELOG.md"
         run: sed -i -E "0,/^## [0-9]+.*$/s/^## [0-9]+.*$/## ${{ steps.bump_version.outputs.version }} (${{ steps.today.outputs.date }})\n\n$(<tmp-changelog.md sed -e 's/[\&/]/\\&/g' -e 's/$/\\n/' | tr -d '\n')\n&/" CHANGELOG.md
 
+      # Generate new header images
+      - name: "Generate header images"
+        uses: INTI-CMNB/KiBot@v2_k6
+        with:
+          config: './.kibot/cicd-pcb-render.kibot.yaml'
+          schema: './hardware/soil-moisture-sensor.kicad_sch'
+          board: './hardware/soil-moisture-sensor.kicad_pcb'
+
       # Commit changes and push with new tag
       - name: "Commit version bump and changelog update and push"
         run: |
@@ -89,7 +97,7 @@ jobs:
         run: GH_TOKEN=${{ github.token }} gh release create v${{ steps.bump_version.outputs.version }} --notes-file tmp-changelog.md --title v${{ steps.bump_version.outputs.version }}
 
       - name: "Create Pull Request into dev"
-        run: GH_TOKEN=${{ github.token }} gh pr create --assignee "RonMcKay" --base "dev" --head master --title "Changelog v${{ steps.bump_version.outputs.version }} → dev" --body-file "tmp-changelog.md"
+        run: GH_TOKEN=${{ github.token }} gh pr create --assignee "RonMcKay" --base "dev" --head master --title "v${{ steps.bump_version.outputs.version }} → dev" --body-file "tmp-changelog.md"
 
   FabricationAndDocumentation:
     needs: CreateRelease
