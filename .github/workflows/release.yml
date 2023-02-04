@@ -65,9 +65,8 @@ jobs:
           owner: "RonMcKay"
           repo: "capacitive-soil-moisture-sensor"
           toTag: "dev"
-          token: ${{ secrets.PAT }}
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Save changelog to file and remove trailing newlines
       - name: "Save changelog changes to file"
