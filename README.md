@@ -1,7 +1,8 @@
-<img src="photos/header-image.jpg">
 <div align="center">
 
-![GitHub all releases](https://img.shields.io/github/downloads/ronmckay/capacitive-soil-moisture-sensor/total?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![CERN-OHL-P v2](https://img.shields.io/badge/license-CERN--OHL--P%20v2-brightgreen)
+<img src="photos/pcb-bottom.png"><img src="photos/pcb-top.png">
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ronmckay/capacitive-soil-moisture-sensor) ![GitHub all releases](https://img.shields.io/github/downloads/ronmckay/capacitive-soil-moisture-sensor/total?logo=github) ![GitHub repo size](https://img.shields.io/github/repo-size/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![GitHub Repo stars](https://img.shields.io/github/stars/ronmckay/capacitive-soil-moisture-sensor?logo=github) ![CERN-OHL-P v2](https://img.shields.io/badge/license-CERN--OHL--P%20v2-brightgreen)
 
 # Capacitive Soil Moisture Sensor
 
@@ -112,10 +113,13 @@ P.S.: The sensor on the photos is only a prototype where I accidentally soldered
 
 # Photos
 
-![](photos/example_readings.png)
+<div align="center">
 
-![](photos/pcb_front.jpg)![](photos/pcb_back.jpg)
+![](photos/example_readings.png)
 
 ![](photos/prototype_01.jpg)![](photos/prototype_02.jpg)![](photos/prototype_03.jpg)
 
 [1]: https://www.mysensors.org
+
+</div>
+

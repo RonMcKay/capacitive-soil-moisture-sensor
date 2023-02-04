@@ -25,29 +25,15 @@ preflight:
         date +'%Y-%m-%d'
     - name: version
       command: >-
-        (if [[ ! -z "${DATADIR}" ]]; then cd $DATADIR; fi; git describe --tags --match "v*" HEAD | sed -r 's/^(v[0-9]+\.[0-9]+)\.[0-9]+(.*)$/\1\2/')
+        echo "v$(grep -m 1 -oP '(?<=^## )([0-9]+\.[0-9]+)' CHANGELOG.md)"
 
 outputs:
-  - name: "Schematic PDF"
-    comment: "PDF - schematic"
-    type: pdf_sch_print
-    dir: "Documentation"
-
-  - name: "Interactive HTML BOM"
-    comment: "BOM - Interactive"
-    type: ibom
-    dir: "Documentation"
-    options:
-      dark_mode: True
-      dnf_filter: 'filter_dnf_components'
-      extra_fields: 'LCSC'
-
   - name: pcb_top
     comment: "Renders - top"
     type: pcbdraw
-    dir: "Documentation"
+    dir: './photos'
     options:
-      output: "%f-%i.%x"
+      output: 'pcb-top.png'
       format: png
       show_components: none
       dpi: 600
@@ -55,18 +41,10 @@ outputs:
   - name: pcb_bot
     comment: "Renders - bottom"
     type: pcbdraw
-    dir: "Documentation"
+    dir: './photos'
     options:
-      output: "%f-%i.%x"
+      output: 'pcb-bottom.png'
       format: png
       bottom: True
       show_components: none
       dpi: 600
-
-  - name: step
-    comment: "Renders - 3D model (STEP)"
-    type: step
-    dir: "Documentation"
-    options:
-      metric_units: true
-      origin: 85,66.2
