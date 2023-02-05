@@ -41,6 +41,7 @@ outputs:
       dark_mode: True
       dnf_filter: 'filter_dnf_components'
       extra_fields: 'LCSC'
+      include_tracks: True
 
   - name: pcb_top
     comment: "Renders - top"
