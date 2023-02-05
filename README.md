@@ -96,7 +96,7 @@ Any contributions are highly welcome and I am happy to discuss remarks in the [g
 
 # Contributing
 
-I am happy to discuss and accept improvements on the project. Please make all your pull-requests on `dev`. It is also a good idea to discuss your planned changes in the [github discussion section](https://github.com/RonMcKay/capacitive-soil-moisture-sensor/discussions) to avoid unnecessary work.
+I am happy to discuss and accept improvements on the project. Please make all your pull-requests against `master`. It is also a good idea to discuss your planned changes in the [github discussion section](https://github.com/RonMcKay/capacitive-soil-moisture-sensor/discussions) to avoid unnecessary work.
 
 # License
 

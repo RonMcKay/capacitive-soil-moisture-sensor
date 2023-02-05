@@ -57,6 +57,14 @@ jobs:
           cz bump --files --yes --increment ${{ github.event.inputs.increment }}
           echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
 
+      # Create new branch for release
+      - name: Create release branch
+        id: release_branch
+        run: |
+          git checkout -b "release-v${{ steps.bump_version.outputs.version }}"
+          git push origin "release-v${{ steps.bump_version.outputs.version }}"
+          echo "name=release-v${{ steps.bump_version.outputs.version }}" >> $GITHUB_OUTPUT
+
       - name: "Build Changelog"
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v3
@@ -64,7 +72,7 @@ jobs:
           configuration: ".github/changelog-config.json"
           owner: "RonMcKay"
           repo: "capacitive-soil-moisture-sensor"
-          toTag: "dev"
+          toTag: ${{ steps.release_branch.outputs.name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -88,15 +96,15 @@ jobs:
       - name: "Commit version bump and changelog update and push"
         run: |
           git add -u
-          git commit -m "bump: ${{ steps.old_version.outputs.version }} → ${{ steps.bump_version.outputs.version }}"
+          git commit -m "release v${{ steps.bump_version.outputs.version }}"
           git tag -a -m "v${{ steps.bump_version.outputs.version }}" v${{ steps.bump_version.outputs.version }}
-          git push --follow-tags
-          
+          git push origin "${{ steps.release_branch.outputs.name }}" --follow-tags
+
       - name: "Create release"
         run: GH_TOKEN=${{ github.token }} gh release create v${{ steps.bump_version.outputs.version }} --notes-file tmp-changelog.md --title v${{ steps.bump_version.outputs.version }}
 
-      - name: "Create Pull Request into dev"
-        run: GH_TOKEN=${{ github.token }} gh pr create --assignee "RonMcKay" --base "dev" --head master --title "v${{ steps.bump_version.outputs.version }} → dev" --body-file "tmp-changelog.md"
+      - name: "Create Pull Request into master"
+        run: GH_TOKEN=${{ github.token }} gh pr create --assignee "RonMcKay" --base "master" --head "${{ steps.release_branch.outputs.name }}" --title "${{ steps.release_branch.outputs.name }} → master" --body-file "tmp-changelog.md"
 
   FabricationAndDocumentation:
     needs: CreateRelease
