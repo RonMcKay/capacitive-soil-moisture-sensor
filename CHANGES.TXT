@@ -1,5 +1,0 @@
-Revision 1.0.1
-
-- Restricted version number on the PCB to '**major.minor**'
-- Fixed `MY_DEBUG` in code with debug messages never being hit
-- Added some documentation

@@ -3,6 +3,9 @@
 kibot:
   version: 1
 
+global:
+  restore_project: true
+  
 filters:
   - name: 'only_jlc_parts'
     comment: 'Only parts with JLC (LCSC) code'
@@ -10,6 +13,15 @@ filters:
     include_only:
       - column: 'LCSC'
         regex: '^C\d+'
+
+preflight:
+  set_text_variables:
+    - name: date
+      command: >-
+        date +'%Y-%m-%d'
+    - name: version
+      command: >-
+        (if [[ ! -z "${DATADIR}" ]]; then cd $DATADIR; fi; git describe --tags --match "v*" HEAD | sed -r 's/^(v[0-9]+\.[0-9]+)\.[0-9]+(.*)$/\1\2/')
 
 variants:
   - name: 'rotated'
