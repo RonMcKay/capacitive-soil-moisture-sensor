@@ -61,9 +61,9 @@ jobs:
       - name: Create release branch
         id: release_branch
         run: |
-          git checkout -b "release-v${{ steps.bump_version.outputs.version }}"
-          git push origin "release-v${{ steps.bump_version.outputs.version }}"
-          echo "name=release-v${{ steps.bump_version.outputs.version }}" >> $GITHUB_OUTPUT
+          git checkout -b "release/v${{ steps.bump_version.outputs.version }}"
+          git push origin "release/v${{ steps.bump_version.outputs.version }}"
+          echo "name=release/v${{ steps.bump_version.outputs.version }}" >> $GITHUB_OUTPUT
 
       - name: "Build Changelog"
         id: build_changelog
