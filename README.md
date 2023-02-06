@@ -9,12 +9,12 @@
 </div>
 
 This is a capacitive soil moisture sensor which runs with a standalone ATmega328P and utilizes the [MySensors][1] framework.
-It can however be adapted to any other framework that uses 2.4 GHz radio communication with a NRF24L01 if you upload your own code.
+It can however be adapted to any other framework that uses 2.4 GHz radio communication with an NRF24L01 if you upload your own code.
 
 A short summary of the features is:
 * Runs on 2 AAA batteries
 * Sleeping current of 8uA (approx. 10 years of battery life under optimal conditions)
-* Uses a NRF24L01 radio module for communication
+* Uses an NRF24L01 radio module for communication
 * Utilizes an ATSHA204A for secure message signing (optional)
 * A sensor value range of approximately 400 (from air to water)
 * External 8MHz resonator for better temperature stability than the internal oscillator
@@ -89,7 +89,7 @@ The minimum (air) and maximum (water) sensor values need to be calibrated. For t
 Here is a list of possible future improvements that might be worth looking into:
 
 * Make the sensor more compact by using a single AA/AAA battery together with a voltage booster
-* Changing out the ATmega328P and the NRF24L01 for a NRF52.
+* Changing out the ATmega328P and the NRF24L01 for an NRF52.
 * Some temperature readings of the soil would be awesome, like an SMD thermistor or something similar at the tip of the sensor.
 
 Any contributions are highly welcome and I am happy to discuss remarks in the [github discussion section](https://github.com/RonMcKay/capacitive-soil-moisture-sensor/discussions).
