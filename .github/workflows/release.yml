@@ -8,18 +8,16 @@ on:
   workflow_dispatch:
     branches:
       - master
-    # Inputs the workflow accepts.
     inputs:
       increment:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Semver type of increment'
-        # Input has to be provided for the workflow to run
-        required: true
+        description: 'Semver increment. Leave empty for automatic detection'
+        required: false
         type: choice
         options:
-        - PATCH
-        - MINOR
-        - MAJOR
+        - ''
+        - 'PATCH'
+        - 'MINOR'
+        - 'MAJOR'
 
 jobs:
   CreateRelease:
@@ -50,11 +48,42 @@ jobs:
         id: old_version
         run: echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
 
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: ".github/changelog-config.json"
+          owner: "RonMcKay"
+          repo: "capacitive-soil-moisture-sensor"
+          toTag: ${{ github.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Save changelog to file and remove trailing newlines
+      - name: "Save changelog changes to file"
+        run: echo '${{ steps.build_changelog.outputs.changelog }}' | sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba' > tmp-changelog.md
+
+      # Automatically detect increment from incremental changelog
+      - name: Detect increment
+        if: inputs.increment == ''
+        id: detect_increment
+        run: echo "increment=$( .github/detect-increment.sh tmp-changelog.md )" >> $GITHUB_OUTPUT
+
+      # Register increment from either user input or automatically detected one
+      - name: Register correct increment
+        id: set_increment
+        run: |
+          if [  -z "${{ inputs.increment }}" ]; then
+            echo "increment=${{ steps.detect_increment.outputs.increment }}" >> $GITHUB_OUTPUT
+          else
+            echo "increment=${{ inputs.increment }}" >> $GITHUB_OUTPUT
+          fi
+
       # Bump version and save version information to output
       - name: Bump version
         id: bump_version
         run: |
-          cz bump --files --yes --increment ${{ github.event.inputs.increment }}
+          cz bump --files --yes --increment ${{ steps.set_increment.outputs.increment }}
           echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
 
       # Create new branch for release
@@ -64,21 +93,6 @@ jobs:
           git checkout -b "release/v${{ steps.bump_version.outputs.version }}"
           git push origin "release/v${{ steps.bump_version.outputs.version }}"
           echo "name=release/v${{ steps.bump_version.outputs.version }}" >> $GITHUB_OUTPUT
-
-      - name: "Build Changelog"
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v3
-        with:
-          configuration: ".github/changelog-config.json"
-          owner: "RonMcKay"
-          repo: "capacitive-soil-moisture-sensor"
-          toTag: ${{ steps.release_branch.outputs.name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # Save changelog to file and remove trailing newlines
-      - name: "Save changelog changes to file"
-        run: echo '${{ steps.build_changelog.outputs.changelog }}' | sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba' > tmp-changelog.md
 
       # Insert changes into CHANGELOG.md
       - name: "Add changes to CHANGELOG.md"
