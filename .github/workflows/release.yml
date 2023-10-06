@@ -4,23 +4,26 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  Timezone: "Etc/UTC"
+
 on:
   workflow_dispatch:
-    branches:
-      - master
     inputs:
       increment:
         description: 'Semver increment. Leave empty for automatic detection'
         required: false
         type: choice
+        default: 'AUTO'
         options:
-        - ''
+        - 'AUTO'
         - 'PATCH'
         - 'MINOR'
         - 'MAJOR'
 
 jobs:
-  CreateRelease:
+  create-release:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     outputs:
       new_version: ${{ steps.bump_version.outputs.version }}
@@ -28,7 +31,11 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
+
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
 
       - name: Install commitizen
         run: python3 -m pip install commitizen==2.39.1
@@ -37,6 +44,7 @@ jobs:
         run: |
           git config user.name 'Philipp Oberdiek'
           git config user.email 'git@oberdiek.net'
+          git config push.autoSetupRemote true
 
       # Get current date
       - name: Get current date
@@ -56,8 +64,7 @@ jobs:
           owner: "RonMcKay"
           repo: "capacitive-soil-moisture-sensor"
           toTag: ${{ github.sha }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       # Save changelog to file and remove trailing newlines
       - name: "Save changelog changes to file"
@@ -65,7 +72,7 @@ jobs:
 
       # Automatically detect increment from incremental changelog
       - name: Detect increment
-        if: inputs.increment == ''
+        if: inputs.increment == 'AUTO'
         id: detect_increment
         run: echo "increment=$( .github/detect-increment.sh tmp-changelog.md )" >> $GITHUB_OUTPUT
 
@@ -73,7 +80,7 @@ jobs:
       - name: Register correct increment
         id: set_increment
         run: |
-          if [  -z "${{ inputs.increment }}" ]; then
+          if [ "${{ inputs.increment }}" == "AUTO" ]; then
             echo "increment=${{ steps.detect_increment.outputs.increment }}" >> $GITHUB_OUTPUT
           else
             echo "increment=${{ inputs.increment }}" >> $GITHUB_OUTPUT
@@ -112,16 +119,20 @@ jobs:
           git add -u
           git commit -m "release v${{ steps.bump_version.outputs.version }}"
           git tag -a -m "v${{ steps.bump_version.outputs.version }}" v${{ steps.bump_version.outputs.version }}
-          git push origin "${{ steps.release_branch.outputs.name }}" --follow-tags
+          git push origin --follow-tags
 
-      - name: "Create release"
-        run: GH_TOKEN=${{ github.token }} gh release create v${{ steps.bump_version.outputs.version }} --notes-file tmp-changelog.md --title v${{ steps.bump_version.outputs.version }}
+      - name: "Create release from new tag"
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.bump_version.outputs.version }}
+          body_path: ${{ github.workspace }}/tmp-changelog.md
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Create Pull Request into master"
         run: GH_TOKEN=${{ github.token }} gh pr create --assignee "RonMcKay" --base "master" --head "${{ steps.release_branch.outputs.name }}" --title "${{ steps.release_branch.outputs.name }} → master" --body-file "tmp-changelog.md"
 
-  FabricationAndDocumentation:
-    needs: CreateRelease
+  fabrication-and-documentation:
+    needs: create-release
     env:
       # Set this to the base filename of your project.
       BaseFileName: soil-moisture-sensor
@@ -138,7 +149,7 @@ jobs:
       # Check out the files of the newly tagged version
       - uses: actions/checkout@v3
         with:
-          ref: "v${{ needs.CreateRelease.outputs.new_version }}"
+          ref: "v${{ needs.create-release.outputs.new_version }}"
           submodules: 'recursive'
 
       # Install Openscad
@@ -149,9 +160,9 @@ jobs:
       - name: Get GitHub release version
         id: get_version
         run: |
-          echo "major=$(echo "${{ needs.CreateRelease.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\1/')" >> $GITHUB_OUTPUT
-          echo "minor=$(echo "${{ needs.CreateRelease.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\2/')" >> $GITHUB_OUTPUT
-          echo "patch=$(echo "${{ needs.CreateRelease.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\3/')" >> $GITHUB_OUTPUT
+          echo "major=$(echo "${{ needs.create-release.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\1/')" >> $GITHUB_OUTPUT
+          echo "minor=$(echo "${{ needs.create-release.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\2/')" >> $GITHUB_OUTPUT
+          echo "patch=$(echo "${{ needs.create-release.outputs.new_version }}" | sed -E 's/^([0-9]+)\.([0-9])+\.([0-9])+/\3/')" >> $GITHUB_OUTPUT
 
       # Actually run KiBot to generate all the files. The KiBot scripts used are
       # in the .kibot/ folder.
@@ -197,7 +208,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: "v${{ needs.CreateRelease.outputs.new_version }}"
+          tag_name: "v${{ needs.create-release.outputs.new_version }}"
           files: |
             ${{ env.BaseFileName }}-documentation.zip
             ${{ env.BaseFileName }}-production.zip
