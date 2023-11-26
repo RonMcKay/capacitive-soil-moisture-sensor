@@ -1,0 +1,73 @@
+name: "Create Review Changelog"
+
+env:
+  Timezone: "Etc/UTC"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-review-changelog:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v4
+
+      - name: Install commitizen
+        run: python3 -m pip install commitizen==2.39.1
+
+      - name: Setup Git
+        run: |
+          git config user.name 'Philipp Oberdiek'
+          git config user.email 'git@oberdiek.net'
+          git config push.autoSetupRemote true
+
+      # Get current date
+      - name: Get current date
+        id: today
+        run: echo "date=$(TZ=${{ env.Timezone }} date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      # Get current version
+      - name: Get old version
+        id: old_version
+        run: echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
+
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: ".github/changelog-config.json"
+          owner: "RonMcKay"
+          repo: "capacitive-soil-moisture-sensor"
+          toTag: ${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Save changelog to file and remove trailing newlines
+      - name: "Save changelog changes to file"
+        run: echo '${{ steps.build_changelog.outputs.changelog }}' | sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba' > tmp-changelog.md
+
+      # Automatically detect increment from incremental changelog
+      - name: Detect increment
+        id: detect_increment
+        run: echo "increment=$( .github/detect-increment.sh tmp-changelog.md )" >> $GITHUB_OUTPUT
+
+      # Bump version and save version information to output
+      - name: Bump version
+        id: bump_version
+        run: |
+          cz bump --files --yes --increment ${{ steps.detect_increment.outputs.increment }}
+          echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
+
+      # Upload Changelog for review
+      - name: "Upload changelog as artifact"
+        uses: actions/upload-artifact@v2
+        with:
+          name: review-changelog-${{ steps.today.outputs.date }}-${{ steps.bump_version.outputs.version }}
+          path: tmp-changelog.md
