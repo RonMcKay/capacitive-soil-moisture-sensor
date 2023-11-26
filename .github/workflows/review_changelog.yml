@@ -65,9 +65,13 @@ jobs:
           cz bump --files --yes --increment ${{ steps.detect_increment.outputs.increment }}
           echo "version=$(cz version --project)" >> $GITHUB_OUTPUT
 
+      # Insert changes into CHANGELOG.md
+      - name: "Add changes to CHANGELOG.md"
+        run: sed -i -E "0,/^## [0-9]+.*$/s/^## [0-9]+.*$/## ${{ steps.bump_version.outputs.version }} (${{ steps.today.outputs.date }})\n\n$(<tmp-changelog.md sed -e 's/[\&/]/\\&/g' -e 's/$/\\n/' | tr -d '\n')\n&/" CHANGELOG.md
+
       # Upload Changelog for review
       - name: "Upload changelog as artifact"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: review-changelog-${{ steps.today.outputs.date }}-${{ steps.bump_version.outputs.version }}
-          path: tmp-changelog.md
+          path: CHANGELOG.md
